@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/start_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
@@ -48,7 +49,10 @@ class LandingScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 200),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const StartScreen())),
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
@@ -63,16 +67,16 @@ class LandingScreen extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.1),
-                            spreadRadius: 2,
-                            blurRadius: 2,
-                          )
+                              color: Colors.black.withOpacity(0.25),
+                              spreadRadius: 0,
+                              blurRadius: 4,
+                              offset: const Offset(0, 4))
                         ]),
                     child: const Center(
                         child: Text(
                       "Let's start",
                       style: TextStyle(
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.bold,
                           fontSize: 16,
                           color: Colors.white),
                     )),
