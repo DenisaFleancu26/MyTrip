@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/login_screen.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -36,7 +37,7 @@ class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body: Padding(
         padding:
             const EdgeInsets.only(top: 75, bottom: 30, left: 15, right: 15),
         child: Column(
@@ -77,7 +78,8 @@ class _StartScreenState extends State<StartScreen> {
             ),
             const SizedBox(height: 115),
             GestureDetector(
-              onTap: () {},
+              onTap: () => Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LoginScreen())),
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(
