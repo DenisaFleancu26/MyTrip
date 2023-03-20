@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/forgotPassword_screen.dart';
+import 'package:my_trip_app/screens/google_screen.dart';
+import 'package:my_trip_app/screens/home_screen.dart';
+import 'package:my_trip_app/screens/signup_screen.dart';
 import 'package:my_trip_app/screens/start_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -34,7 +38,7 @@ class LoginScreen extends StatelessWidget {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const StartScreen())),
+                        builder: (context) => const GoogleScreen())),
                 child: Container(
                   height: 45,
                   width: 200,
@@ -140,7 +144,7 @@ class LoginScreen extends StatelessWidget {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const StartScreen())),
+                        builder: (context) => const ForgotPasswordScreen())),
                 child: Container(
                   height: 30,
                   width: 140,
@@ -158,7 +162,7 @@ class LoginScreen extends StatelessWidget {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const StartScreen())),
+                        builder: (context) => const HomeScreen())),
                 child: Container(
                   height: 50,
                   width: 340,
@@ -206,7 +210,7 @@ class LoginScreen extends StatelessWidget {
                       onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const StartScreen())),
+                              builder: (context) => const SignupScreen())),
                       child: Container(
                         height: 30,
                         width: 50,
