@@ -3,7 +3,6 @@ import 'package:my_trip_app/screens/forgotPassword_screen.dart';
 import 'package:my_trip_app/screens/google_screen.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/signup_screen.dart';
-import 'package:my_trip_app/screens/start_screen.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -15,7 +14,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(0, 255, 255, 255),
+        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
         foregroundColor: Colors.black,
         elevation: 0,
       ),
