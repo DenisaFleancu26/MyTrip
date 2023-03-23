@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
+import 'package:my_trip_app/screens/signup_screen.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -111,7 +112,10 @@ class _StartScreenState extends State<StartScreen> {
             ),
             const SizedBox(height: 15),
             GestureDetector(
-              onTap: () {},
+              onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const SignupScreen())),
               child: Container(
                 height: 50,
                 decoration: BoxDecoration(

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/forgotPassword_screen.dart';
+import 'package:my_trip_app/screens/google_screen.dart';
+import 'package:my_trip_app/screens/home_screen.dart';
+import 'package:my_trip_app/screens/login_screen.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -27,7 +31,10 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const GoogleScreen())),
                 child: Container(
                   height: 45,
                   width: 200,
@@ -188,7 +195,10 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ForgotPasswordScreen())),
                 child: Container(
                   height: 30,
                   width: 140,
@@ -203,7 +213,10 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen())),
                 child: Container(
                   height: 50,
                   width: 340,
@@ -248,7 +261,10 @@ class SignupScreen extends StatelessWidget {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen())),
                       child: Container(
                         height: 30,
                         width: 50,
