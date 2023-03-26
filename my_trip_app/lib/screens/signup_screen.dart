@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_trip_app/screens/forgotPassword_screen.dart';
-import 'package:my_trip_app/screens/google_screen.dart';
+import 'package:my_trip_app/screens/forgot_password_screen.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
+import 'package:my_trip_app/widgets/custom_button.dart';
 
 class SignupScreen extends StatelessWidget {
   const SignupScreen({super.key});
@@ -21,20 +21,16 @@ class SignupScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
               const Text(
-                "  Sign up",
+                "Sign up",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 10),
               GestureDetector(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const GoogleScreen())),
+                onTap: () {},
                 child: Container(
                   height: 45,
                   width: 200,
@@ -50,8 +46,9 @@ class SignupScreen extends StatelessWidget {
                             offset: const Offset(0, 4))
                       ]),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(width: 30),
                       Image.asset('assets/images/google.png', width: 30),
                       const SizedBox(width: 10),
                       const Text(
@@ -65,7 +62,7 @@ class SignupScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 15),
               const Center(
                 child: Text("Or sign up using",
                     style: TextStyle(
@@ -73,7 +70,7 @@ class SignupScreen extends StatelessWidget {
                       fontSize: 13,
                     )),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 10),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -212,41 +209,15 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              GestureDetector(
+              CustomButton(
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const HomeScreen())),
-                child: Container(
-                  height: 50,
-                  width: 340,
-                  margin: const EdgeInsets.only(left: 10),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      gradient: const LinearGradient(
-                        colors: [
-                          Color.fromARGB(255, 0, 206, 203),
-                          Color.fromARGB(245, 4, 116, 177),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: const Offset(0, 4))
-                      ]),
-                  child: const Center(
-                      child: Text(
-                    "Sign up",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        color: Colors.white),
-                  )),
-                ),
+                withGradient: true,
+                text: "Sign up",
+                colorGradient1: const Color.fromARGB(255, 0, 206, 203),
+                colorGradient2: const Color.fromARGB(245, 4, 116, 177),
               ),
               const SizedBox(height: 30),
               Container(
