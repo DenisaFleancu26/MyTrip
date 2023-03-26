@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 10),
               const Text(
-                "  Log in",
+                "Log in",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.bold,
@@ -34,10 +34,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               GestureDetector(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const GoogleScreen())),
+                onTap: () {},
                 child: Container(
                   height: 45,
                   width: 200,
@@ -53,8 +50,9 @@ class LoginScreen extends StatelessWidget {
                             offset: const Offset(0, 4))
                       ]),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(width: 30),
                       Image.asset('assets/images/google.png', width: 30),
                       const SizedBox(width: 10),
                       const Text(
