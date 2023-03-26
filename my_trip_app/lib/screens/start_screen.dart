@@ -3,6 +3,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/screens/signup_screen.dart';
+import 'package:my_trip_app/widgets/custom_button.dart';
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
@@ -78,66 +79,22 @@ class _StartScreenState extends State<StartScreen> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
             const SizedBox(height: 115),
-            GestureDetector(
+            CustomButton(
               onTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const LoginScreen())),
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color.fromARGB(255, 0, 206, 203),
-                        Color.fromARGB(245, 4, 116, 177),
-                      ],
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.25),
-                          spreadRadius: 0,
-                          blurRadius: 4,
-                          offset: const Offset(0, 4))
-                    ]),
-                child: const Center(
-                    child: Text(
-                  "Log in",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.white),
-                )),
-              ),
+              withGradient: true,
+              text: "Log in",
+              colorGradient1: const Color.fromARGB(255, 0, 206, 203),
+              colorGradient2: const Color.fromARGB(245, 4, 116, 177),
             ),
             const SizedBox(height: 15),
-            GestureDetector(
-              onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const SignupScreen())),
-              child: Container(
-                height: 50,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.black.withOpacity(0.25),
-                          spreadRadius: 0,
-                          blurRadius: 4,
-                          offset: const Offset(0, 4))
-                    ]),
-                child: const Center(
-                    child: Text(
-                  "Create account",
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Colors.black),
-                )),
-              ),
-            )
+            CustomButton(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SignupScreen())),
+                withGradient: false,
+                text: "Create account"),
           ],
         ),
       ),
