@@ -1,14 +1,59 @@
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/screens/forgot_password_screen.dart';
-import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/signup_screen.dart';
+import 'package:my_trip_app/widget_tree.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../auth.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
-  get tEmail => "Email";
-  get tPassword => "Password";
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  String? errorMessage = '';
+  bool isLogin = true;
+
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  Future<void> signInWithEmailAndPassword() async {
+    try {
+      await Auth().signInWithEmailAndPassword(
+        email: _controllerEmail.text,
+        password: _controllerPassword.text,
+      );
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => WidgetTree()));
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        errorMessage = e.message;
+      });
+    }
+  }
+
+  Widget _entryField(
+    String title,
+    TextEditingController controller,
+  ) {
+    return TextField(
+      controller: controller,
+      obscureText: title == 'Password' ? true : false,
+      decoration: InputDecoration(
+        hintText: title,
+        border: InputBorder.none,
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+              width: 2, color: Color.fromARGB(255, 202, 202, 202)),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +118,7 @@ class LoginScreen extends StatelessWidget {
                       fontSize: 13,
                     )),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
@@ -88,20 +133,7 @@ class LoginScreen extends StatelessWidget {
                             blurRadius: 4,
                             offset: const Offset(0, 4))
                       ]),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: tEmail,
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 2,
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-                    ),
-                  ),
+                  child: _entryField('Email', _controllerEmail),
                 ),
               ),
               Padding(
@@ -118,21 +150,7 @@ class LoginScreen extends StatelessWidget {
                             blurRadius: 4,
                             offset: const Offset(0, 4))
                       ]),
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: tPassword,
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 2,
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-                    ),
-                  ),
+                  child: _entryField('Password', _controllerPassword),
                 ),
               ),
               const SizedBox(height: 10),
@@ -155,10 +173,7 @@ class LoginScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               CustomButton(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HomeScreen())),
+                onTap: signInWithEmailAndPassword,
                 withGradient: true,
                 text: "Log in",
                 colorGradient1: const Color.fromARGB(255, 0, 206, 203),
