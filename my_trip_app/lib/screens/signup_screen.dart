@@ -176,6 +176,7 @@ class SignupScreen extends StatelessWidget {
                             offset: const Offset(0, 4))
                       ]),
                   child: TextFormField(
+                    obscureText: true,
                     decoration: InputDecoration(
                       hintText: 'Password',
                       border: InputBorder.none,
@@ -210,10 +211,8 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               CustomButton(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const HomeScreen())),
+                onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => HomeScreen())),
                 withGradient: true,
                 text: "Sign up",
                 colorGradient1: const Color.fromARGB(255, 0, 206, 203),
