@@ -35,6 +35,18 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
+  Widget _errorMessage() {
+    return Center(
+        child: Text(
+            errorMessage == ''
+                ? ''
+                : "The mail or password you entered is wrong!",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 199, 6, 6),
+              fontSize: 15,
+            )));
+  }
+
   Widget _entryField(
     String title,
     TextEditingController controller,
@@ -118,6 +130,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontSize: 13,
                     )),
               ),
+              const SizedBox(height: 20),
+              _errorMessage(),
               const SizedBox(height: 10),
               Padding(
                 padding:
