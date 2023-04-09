@@ -1,11 +1,111 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/screens/forgot_password_screen.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
-class SignupScreen extends StatelessWidget {
+import '../auth.dart';
+
+class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  String? errorMessage = '';
+  bool isLogin = true;
+  final TextEditingController _controllerFirstName = TextEditingController();
+  final TextEditingController _controllerLastName = TextEditingController();
+  final TextEditingController _controllerEmail = TextEditingController();
+  final TextEditingController _controllerPassword = TextEditingController();
+
+  Future<void> signUpUser() async {
+    if (_controllerFirstName.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter your First Name";
+      });
+      return;
+    }
+    if (_controllerLastName.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter your Last Name";
+      });
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+        email: _controllerEmail.text,
+        password: _controllerPassword.text,
+      )
+          .then((value) {
+        FirebaseFirestore.instance.collection('Users').add({
+          'email': _controllerEmail.text,
+          'firstName': _controllerFirstName.text,
+          'lastName': _controllerLastName.text
+        });
+
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      });
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        switch (e.code) {
+          case "weak-password":
+            errorMessage = "The password must be 6 characters long or more!";
+            break;
+          case "email-already-in-use":
+            errorMessage = "The email address is already in use!";
+            break;
+          case "invalid-email":
+            errorMessage = "The email is invalid!";
+            break;
+          case "wrong-password":
+            errorMessage = "The password is invalid!";
+            break;
+          case "unknown":
+            errorMessage = "Invalid data!";
+            break;
+          default:
+            errorMessage = e.code;
+        }
+      });
+    }
+  }
+
+  Widget _errorMessage() {
+    return Center(
+        child: Text(errorMessage == '' ? '' : "$errorMessage",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 199, 6, 6),
+              fontSize: 15,
+            )));
+  }
+
+  Widget _entryField(
+    String title,
+    TextEditingController controller,
+  ) {
+    return TextField(
+      controller: controller,
+      obscureText: title == 'Password' ? true : false,
+      decoration: InputDecoration(
+        hintText: title,
+        border: InputBorder.none,
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(
+              width: 2, color: Color.fromARGB(255, 202, 202, 202)),
+          borderRadius: BorderRadius.circular(20),
+        ),
+        contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +130,10 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Auth().signInWithGoogle().then((value) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }),
                 child: Container(
                   height: 45,
                   width: 200,
@@ -70,6 +173,8 @@ class SignupScreen extends StatelessWidget {
                       fontSize: 13,
                     )),
               ),
+              const SizedBox(height: 20),
+              _errorMessage(),
               const SizedBox(height: 10),
               Padding(
                 padding:
@@ -85,20 +190,7 @@ class SignupScreen extends StatelessWidget {
                             blurRadius: 4,
                             offset: const Offset(0, 4))
                       ]),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'First Name',
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 2,
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-                    ),
-                  ),
+                  child: _entryField('First Name', _controllerFirstName),
                 ),
               ),
               Padding(
@@ -115,20 +207,7 @@ class SignupScreen extends StatelessWidget {
                             blurRadius: 4,
                             offset: const Offset(0, 4))
                       ]),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Last Name',
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 2,
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-                    ),
-                  ),
+                  child: _entryField('Last Name', _controllerLastName),
                 ),
               ),
               Padding(
@@ -145,20 +224,7 @@ class SignupScreen extends StatelessWidget {
                             blurRadius: 4,
                             offset: const Offset(0, 4))
                       ]),
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 2,
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-                    ),
-                  ),
+                  child: _entryField('Email', _controllerEmail),
                 ),
               ),
               Padding(
@@ -175,21 +241,7 @@ class SignupScreen extends StatelessWidget {
                             blurRadius: 4,
                             offset: const Offset(0, 4))
                       ]),
-                  child: TextFormField(
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                      border: InputBorder.none,
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            width: 2,
-                            color: Color.fromARGB(255, 202, 202, 202)),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      contentPadding:
-                          const EdgeInsets.only(left: 30, top: 15, bottom: 15),
-                    ),
-                  ),
+                  child: _entryField('Password', _controllerPassword),
                 ),
               ),
               GestureDetector(
@@ -211,8 +263,7 @@ class SignupScreen extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               CustomButton(
-                onTap: () => Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen())),
+                onTap: signUpUser,
                 withGradient: true,
                 text: "Sign up",
                 colorGradient1: const Color.fromARGB(255, 0, 206, 203),

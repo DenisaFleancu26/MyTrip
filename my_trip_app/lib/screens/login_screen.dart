@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/screens/forgot_password_screen.dart';
+import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/signup_screen.dart';
-import 'package:my_trip_app/widget_tree.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../auth.dart';
@@ -22,12 +22,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> signInWithEmailAndPassword() async {
     try {
-      await Auth().signInWithEmailAndPassword(
+      await Auth()
+          .signInWithEmailAndPassword(
         email: _controllerEmail.text,
         password: _controllerPassword.text,
-      );
-      Navigator.push(
-          context, MaterialPageRoute(builder: (context) => WidgetTree()));
+      )
+          .then((value) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      });
     } on FirebaseAuthException catch (e) {
       setState(() {
         errorMessage = e.message;
@@ -90,7 +93,10 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 40),
               GestureDetector(
-                onTap: () {},
+                onTap: () => Auth().signInWithGoogle().then((value) {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => HomeScreen()));
+                }),
                 child: Container(
                   height: 45,
                   width: 200,
