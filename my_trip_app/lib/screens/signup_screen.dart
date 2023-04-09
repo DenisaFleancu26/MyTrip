@@ -22,6 +22,19 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _controllerPassword = TextEditingController();
 
   Future<void> signUpUser() async {
+    if (_controllerFirstName.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter your First Name";
+      });
+      return;
+    }
+    if (_controllerLastName.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter your Last Name";
+      });
+      return;
+    }
+
     try {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
@@ -38,7 +51,38 @@ class _SignupScreenState extends State<SignupScreen> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => HomeScreen()));
       });
-    } on FirebaseAuthException catch (e) {}
+    } on FirebaseAuthException catch (e) {
+      setState(() {
+        switch (e.code) {
+          case "weak-password":
+            errorMessage = "The password must be 6 characters long or more!";
+            break;
+          case "email-already-in-use":
+            errorMessage = "The email address is already in use!";
+            break;
+          case "invalid-email":
+            errorMessage = "The email is invalid!";
+            break;
+          case "wrong-password":
+            errorMessage = "The password is invalid!";
+            break;
+          case "unknown":
+            errorMessage = "Invalid data!";
+            break;
+          default:
+            errorMessage = e.code;
+        }
+      });
+    }
+  }
+
+  Widget _errorMessage() {
+    return Center(
+        child: Text(errorMessage == '' ? '' : "$errorMessage",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 199, 6, 6),
+              fontSize: 15,
+            )));
   }
 
   Widget _entryField(
@@ -125,6 +169,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     )),
               ),
               const SizedBox(height: 20),
+              _errorMessage(),
               const SizedBox(height: 10),
               Padding(
                 padding:
