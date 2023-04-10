@@ -68,63 +68,73 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(0, 255, 255, 255),
+        backgroundColor: Color.fromARGB(255, 200, 239, 243),
         foregroundColor: Colors.black,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                "Forgot Password",
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 50),
-              const Center(
-                child: Text(
-                    "Please enter your Email and we will send you a password reset link!",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                    )),
-              ),
-              const SizedBox(height: 30),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
-                            spreadRadius: 0,
-                            blurRadius: 4,
-                            offset: const Offset(0, 4))
-                      ]),
-                  child: _entryField('Email', _controllerEmail),
-                ),
-              ),
-              const SizedBox(height: 20),
-              _errorMessage(),
-              const SizedBox(height: 30),
-              CustomButton(
-                onTap: resetPassword,
-                withGradient: true,
-                text: "Send Request",
-                colorGradient1: const Color.fromARGB(255, 0, 206, 203),
-                colorGradient2: const Color.fromARGB(245, 4, 116, 177),
-              ),
-            ],
+      body: Stack(
+        children: [
+          Image.asset(
+            'assets/images/back.png',
+            fit: BoxFit.cover,
+            height: double.infinity,
+            width: double.infinity,
           ),
-        ),
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    "Forgot Password",
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 50),
+                  const Center(
+                    child: Text(
+                        "Please enter your Email and we will send you a password reset link!",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        )),
+                  ),
+                  const SizedBox(height: 30),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15, vertical: 10),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black.withOpacity(0.25),
+                                spreadRadius: 0,
+                                blurRadius: 4,
+                                offset: const Offset(0, 4))
+                          ]),
+                      child: _entryField('Email', _controllerEmail),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  _errorMessage(),
+                  const SizedBox(height: 30),
+                  CustomButton(
+                    onTap: resetPassword,
+                    withGradient: true,
+                    text: "Send Request",
+                    colorGradient1: const Color.fromARGB(255, 0, 206, 203),
+                    colorGradient2: const Color.fromARGB(245, 4, 116, 177),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
