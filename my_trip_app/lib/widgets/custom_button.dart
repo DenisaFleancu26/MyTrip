@@ -20,36 +20,39 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        height: 50,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            gradient: withGradient
-                ? LinearGradient(
-                    colors: [
-                      colorGradient1!,
-                      colorGradient2!,
-                    ],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  )
-                : null,
-            color: !withGradient ? Colors.white : null,
-            boxShadow: [
-              BoxShadow(
-                  color: Colors.black.withOpacity(0.25),
-                  spreadRadius: 0,
-                  blurRadius: 4,
-                  offset: const Offset(0, 4))
-            ]),
-        child: Center(
-            child: Text(
-          text,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 16,
-              color: withGradient ? Colors.white : Colors.black),
-        )),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+        child: Container(
+          height: 50,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              gradient: withGradient
+                  ? LinearGradient(
+                      colors: [
+                        colorGradient1!,
+                        colorGradient2!,
+                      ],
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                    )
+                  : null,
+              color: !withGradient ? Colors.white : null,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black.withOpacity(0.25),
+                    spreadRadius: 0,
+                    blurRadius: 4,
+                    offset: const Offset(0, 4))
+              ]),
+          child: Center(
+              child: Text(
+            text,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+                color: withGradient ? Colors.white : Colors.black),
+          )),
+        ),
       ),
     );
   }

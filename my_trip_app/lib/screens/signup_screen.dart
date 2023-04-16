@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_trip_app/screens/forgot_password_screen.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
@@ -22,6 +21,7 @@ class _SignupScreenState extends State<SignupScreen> {
   final TextEditingController _controllerLastName = TextEditingController();
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
+  bool _obscureText = true;
 
   Future<void> signUpUser() async {
     if (_controllerFirstName.text.isEmpty) {
@@ -88,12 +88,10 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget _entryField(
-    String title,
-    TextEditingController controller,
-  ) {
+      String title, TextEditingController controller, bool hasObscureText) {
     return TextField(
+      obscureText: hasObscureText ? _obscureText : false,
       controller: controller,
-      obscureText: title == 'Password' ? true : false,
       decoration: InputDecoration(
         hintText: title,
         border: InputBorder.none,
@@ -103,6 +101,17 @@ class _SignupScreenState extends State<SignupScreen> {
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+        suffixIcon: Visibility(
+          visible: hasObscureText,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+          ),
+        ),
       ),
     );
   }
@@ -200,7 +209,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 blurRadius: 4,
                                 offset: const Offset(0, 4))
                           ]),
-                      child: _entryField('First Name', _controllerFirstName),
+                      child: _entryField(
+                          'First Name', _controllerFirstName, false),
                     ),
                   ),
                   Padding(
@@ -217,7 +227,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                 blurRadius: 4,
                                 offset: const Offset(0, 4))
                           ]),
-                      child: _entryField('Last Name', _controllerLastName),
+                      child:
+                          _entryField('Last Name', _controllerLastName, false),
                     ),
                   ),
                   Padding(
@@ -234,7 +245,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 blurRadius: 4,
                                 offset: const Offset(0, 4))
                           ]),
-                      child: _entryField('Email', _controllerEmail),
+                      child: _entryField('Email', _controllerEmail, false),
                     ),
                   ),
                   Padding(
@@ -251,27 +262,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 blurRadius: 4,
                                 offset: const Offset(0, 4))
                           ]),
-                      child: _entryField('Password', _controllerPassword),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const ForgotPasswordScreen())),
-                    child: Container(
-                      height: 30,
-                      width: 140,
-                      margin: const EdgeInsets.only(left: 200),
-                      decoration: const BoxDecoration(borderRadius: null),
-                      child: const Center(
-                          child: Text(
-                        "Forgot your password?",
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: Color.fromARGB(255, 0, 206, 203)),
-                      )),
+                      child: _entryField('Password', _controllerPassword, true),
                     ),
                   ),
                   const SizedBox(height: 30),
