@@ -18,8 +18,7 @@ class LandingScreen extends StatelessWidget {
           ),
         ),
         child: Padding(
-          padding:
-              const EdgeInsets.only(top: 70, bottom: 30, left: 30, right: 30),
+          padding: const EdgeInsets.only(top: 70, left: 30, right: 30),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -48,7 +47,7 @@ class LandingScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 200),
+                const SizedBox(height: 175),
                 CustomButton(
                   onTap: () => Navigator.push(
                       context,
