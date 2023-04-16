@@ -40,8 +40,7 @@ class _StartScreenState extends State<StartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding:
-            const EdgeInsets.only(top: 75, bottom: 30, left: 15, right: 15),
+        padding: const EdgeInsets.only(top: 75, left: 15, right: 15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -78,7 +77,7 @@ class _StartScreenState extends State<StartScreen> {
               "Upload your files and keep them save",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
             ),
-            const SizedBox(height: 115),
+            const SizedBox(height: 100),
             CustomButton(
               onTap: () => Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const LoginScreen())),
@@ -87,7 +86,6 @@ class _StartScreenState extends State<StartScreen> {
               colorGradient1: const Color.fromARGB(255, 0, 206, 203),
               colorGradient2: const Color.fromARGB(245, 4, 116, 177),
             ),
-            const SizedBox(height: 15),
             CustomButton(
                 onTap: () => Navigator.push(
                     context,

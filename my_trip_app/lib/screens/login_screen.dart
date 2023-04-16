@@ -16,6 +16,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   String? errorMessage = '';
   bool isLogin = true;
+  bool _obscureText = true;
 
   final TextEditingController _controllerEmail = TextEditingController();
   final TextEditingController _controllerPassword = TextEditingController();
@@ -51,12 +52,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _entryField(
-    String title,
-    TextEditingController controller,
-  ) {
+      String title, TextEditingController controller, bool hasObscureText) {
     return TextField(
+      obscureText: hasObscureText ? _obscureText : false,
       controller: controller,
-      obscureText: title == 'Password' ? true : false,
       decoration: InputDecoration(
         hintText: title,
         border: InputBorder.none,
@@ -66,6 +65,17 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
+        suffixIcon: Visibility(
+          visible: hasObscureText,
+          child: GestureDetector(
+            onTap: () {
+              setState(() {
+                _obscureText = !_obscureText;
+              });
+            },
+            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+          ),
+        ),
       ),
     );
   }
@@ -163,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 blurRadius: 4,
                                 offset: const Offset(0, 4))
                           ]),
-                      child: _entryField('Email', _controllerEmail),
+                      child: _entryField('Email', _controllerEmail, false),
                     ),
                   ),
                   Padding(
@@ -180,7 +190,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 blurRadius: 4,
                                 offset: const Offset(0, 4))
                           ]),
-                      child: _entryField('Password', _controllerPassword),
+                      child: _entryField('Password', _controllerPassword, true),
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -212,7 +222,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     colorGradient1: const Color.fromARGB(255, 0, 206, 203),
                     colorGradient2: const Color.fromARGB(245, 4, 116, 177),
                   ),
-                  const SizedBox(height: 90),
+                  const SizedBox(height: 50),
                   Container(
                     margin: const EdgeInsets.only(left: 70),
                     child: Row(
