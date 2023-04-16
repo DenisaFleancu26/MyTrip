@@ -86,7 +86,6 @@ class _StartScreenState extends State<StartScreen> {
               colorGradient1: const Color.fromARGB(255, 0, 206, 203),
               colorGradient2: const Color.fromARGB(245, 4, 116, 177),
             ),
-            const SizedBox(height: 15),
             CustomButton(
                 onTap: () => Navigator.push(
                     context,
