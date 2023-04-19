@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
-
+import 'package:my_trip_app/trip.dart';
 import '../auth.dart';
 import '../widgets/custom_button.dart';
 
@@ -24,6 +24,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
   );
 
   String dropDownValue = 'Plane';
+  String? errorMessage = '';
 
   TimeOfDay? timeIn = const TimeOfDay(hour: 12, minute: 12);
   TimeOfDay? timeOut = const TimeOfDay(hour: 12, minute: 12);
@@ -51,6 +52,66 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
         contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
       ),
     );
+  }
+
+  Widget _errorMessage() {
+    return Center(
+        child: Text(errorMessage == '' ? '' : "$errorMessage",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 199, 6, 6),
+              fontSize: 15,
+            )));
+  }
+
+  Future<void> addPlan() async {
+    if (_controllerName.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter your Trip Name";
+      });
+      return;
+    }
+    if (_controllerDestination.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter your destination";
+      });
+      return;
+    }
+    if (_controllerHotel.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter the name of the hotel";
+      });
+      return;
+    }
+    if (_controllerAddress.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter the hotel address";
+      });
+      return;
+    }
+    if (_controllerContact.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter hotel contact details";
+      });
+      return;
+    }
+    DateTime startDate = dateRange.start;
+    DateTime endDate = dateRange.end;
+
+    Trip trip = Trip();
+
+    await trip.addPlanTrip(
+        DateFormat('dd/MM/yyyy').format(startDate),
+        DateFormat('dd/MM/yyyy').format(endDate),
+        _controllerName.text,
+        _controllerDestination.text,
+        _controllerHotel.text,
+        _controllerAddress.text,
+        _controllerContact.text,
+        '${timeIn!.hour.toString().padLeft(2, '0')}:${timeIn!.minute.toString().padLeft(2, '0')}',
+        '${timeOut!.hour.toString().padLeft(2, '0')}:${timeOut!.minute.toString().padLeft(2, '0')}',
+        dropDownValue,
+        '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
+        '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}');
   }
 
   Future pickDateRange() async {
@@ -141,8 +202,11 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                     ),
                   ),
                 ),
+                const SizedBox(height: 10),
+                _errorMessage(),
+                const SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.only(left: 15, top: 40),
+                  padding: const EdgeInsets.only(left: 15, top: 10),
                   child: Row(
                     children: [
                       Column(
@@ -625,7 +689,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                 ),
                 const SizedBox(height: 30),
                 CustomButton(
-                  onTap: () => {},
+                  onTap: addPlan,
                   withGradient: true,
                   text: "Save Plan",
                   colorGradient1: const Color.fromARGB(255, 0, 206, 203),
