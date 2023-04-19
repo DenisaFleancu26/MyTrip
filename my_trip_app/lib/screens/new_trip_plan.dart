@@ -25,6 +25,11 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
 
   String dropDownValue = 'Plane';
 
+  TimeOfDay? timeIn = const TimeOfDay(hour: 12, minute: 12);
+  TimeOfDay? timeOut = const TimeOfDay(hour: 12, minute: 12);
+  TimeOfDay? timeDeparture = const TimeOfDay(hour: 12, minute: 12);
+  TimeOfDay? timeReturn = const TimeOfDay(hour: 12, minute: 12);
+
   final TextEditingController _controllerDestination = TextEditingController();
   final TextEditingController _controllerName = TextEditingController();
   final TextEditingController _controllerHotel = TextEditingController();
@@ -340,9 +345,33 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             ),
                           ),
                           CustomButton(
-                            onTap: () => {},
+                            onTap: () async {
+                              TimeOfDay? newTimeIn = await showTimePicker(
+                                context: context,
+                                initialTime: timeIn!,
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: const ColorScheme.light(
+                                        primary:
+                                            Color.fromARGB(255, 0, 206, 203),
+                                        onPrimary:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (newTimeIn != null) {
+                                setState(() {
+                                  timeIn = newTimeIn;
+                                });
+                              }
+                            },
                             withGradient: true,
-                            text: '',
+                            text:
+                                '${timeIn!.hour.toString()}:${timeIn!.minute.toString()}',
                             width: 150,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
@@ -372,9 +401,33 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             ),
                           ),
                           CustomButton(
-                            onTap: () => {},
+                            onTap: () async {
+                              TimeOfDay? newTimeOut = await showTimePicker(
+                                context: context,
+                                initialTime: timeOut!,
+                                builder: (context, child) {
+                                  return Theme(
+                                    data: Theme.of(context).copyWith(
+                                      colorScheme: const ColorScheme.light(
+                                        primary:
+                                            Color.fromARGB(255, 0, 206, 203),
+                                        onPrimary:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                      ),
+                                    ),
+                                    child: child!,
+                                  );
+                                },
+                              );
+                              if (newTimeOut != null) {
+                                setState(() {
+                                  timeOut = newTimeOut;
+                                });
+                              }
+                            },
                             withGradient: true,
-                            text: '',
+                            text:
+                                '${timeOut!.hour.toString()}:${timeOut!.minute.toString()}',
                             width: 150,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
@@ -488,9 +541,32 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                       ),
                       const SizedBox(width: 10),
                       CustomButton(
-                        onTap: () => {},
+                        onTap: () async {
+                          TimeOfDay? newTimeDeparture = await showTimePicker(
+                            context: context,
+                            initialTime: timeDeparture!,
+                            builder: (context, child) {
+                              return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: const ColorScheme.light(
+                                    primary: Color.fromARGB(255, 0, 206, 203),
+                                    onPrimary:
+                                        Color.fromARGB(255, 255, 255, 255),
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
+                          );
+                          if (newTimeDeparture != null) {
+                            setState(() {
+                              timeDeparture = newTimeDeparture;
+                            });
+                          }
+                        },
                         withGradient: true,
-                        text: '',
+                        text:
+                            '${timeDeparture!.hour.toString()}:${timeDeparture!.minute.toString()}',
                         width: 100,
                         colorGradient1: const Color.fromARGB(255, 0, 206, 203),
                         colorGradient2: const Color.fromARGB(245, 4, 116, 177),
@@ -514,9 +590,32 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                       ),
                       const SizedBox(width: 10),
                       CustomButton(
-                        onTap: () => {},
+                        onTap: () async {
+                          TimeOfDay? newTimeReturn = await showTimePicker(
+                            context: context,
+                            initialTime: timeReturn!,
+                            builder: (context, child) {
+                              return Theme(
+                                data: Theme.of(context).copyWith(
+                                  colorScheme: const ColorScheme.light(
+                                    primary: Color.fromARGB(255, 0, 206, 203),
+                                    onPrimary:
+                                        Color.fromARGB(255, 255, 255, 255),
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
+                          );
+                          if (newTimeReturn != null) {
+                            setState(() {
+                              timeReturn = newTimeReturn;
+                            });
+                          }
+                        },
                         withGradient: true,
-                        text: '',
+                        text:
+                            '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
                         width: 100,
                         colorGradient1: const Color.fromARGB(255, 0, 206, 203),
                         colorGradient2: const Color.fromARGB(245, 4, 116, 177),
