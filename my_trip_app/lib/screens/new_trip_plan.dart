@@ -371,7 +371,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             },
                             withGradient: true,
                             text:
-                                '${timeIn!.hour.toString()}:${timeIn!.minute.toString()}',
+                                '${timeIn!.hour.toString().padLeft(2, '0')}:${timeIn!.minute.toString().padLeft(2, '0')}',
                             width: 150,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
@@ -427,7 +427,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             },
                             withGradient: true,
                             text:
-                                '${timeOut!.hour.toString()}:${timeOut!.minute.toString()}',
+                                '${timeOut!.hour.toString().padLeft(2, '0')}:${timeOut!.minute.toString().padLeft(2, '0')}',
                             width: 150,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
@@ -566,7 +566,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         },
                         withGradient: true,
                         text:
-                            '${timeDeparture!.hour.toString()}:${timeDeparture!.minute.toString()}',
+                            '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
                         width: 100,
                         colorGradient1: const Color.fromARGB(255, 0, 206, 203),
                         colorGradient2: const Color.fromARGB(245, 4, 116, 177),
