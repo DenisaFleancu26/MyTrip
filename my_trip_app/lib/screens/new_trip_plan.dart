@@ -48,6 +48,31 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
     );
   }
 
+  Future pickDateRange() async {
+    DateTimeRange? newDateRange = await showDateRangePicker(
+      context: context,
+      initialDateRange: dateRange,
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: const ColorScheme.light(
+              primary: Color.fromARGB(255, 0, 206, 203),
+              onPrimary: Color.fromARGB(255, 255, 255, 255),
+              onSurface: Color.fromARGB(245, 4, 116, 177),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (newDateRange == null) return;
+
+    setState(() => dateRange = newDateRange);
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       bottomTabIndex = index;
@@ -136,9 +161,9 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             ),
                           ),
                           CustomButton(
-                            onTap: () => {},
+                            onTap: pickDateRange,
                             withGradient: true,
-                            text: '',
+                            text: DateFormat('dd/MM/yyyy').format(start),
                             width: 150,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
@@ -168,9 +193,9 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             ),
                           ),
                           CustomButton(
-                            onTap: () => {},
+                            onTap: pickDateRange,
                             withGradient: true,
-                            text: '',
+                            text: DateFormat('dd/MM/yyyy').format(end),
                             width: 150,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
