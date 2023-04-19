@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:my_trip_app/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
+import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -413,6 +414,14 @@ class _HomeScreenState extends State<HomeScreen> {
   void _onItemTapped(int index) {
     setState(() {
       bottomTabIndex = index;
+      switch (index) {
+        case 1:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const NewTripPlanScreen()),
+          );
+          break;
+      }
     });
   }
 
@@ -426,8 +435,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_none_outlined),
-            label: 'Notification',
+            icon: Icon(Icons.add_circle_outline),
+            label: 'New Trip',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle_outlined),
