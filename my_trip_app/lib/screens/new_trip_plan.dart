@@ -206,8 +206,10 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                 _errorMessage(),
                 const SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.only(left: 15, top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -233,7 +235,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             onTap: pickDateRange,
                             withGradient: true,
                             text: DateFormat('dd/MM/yyyy').format(start),
-                            width: 150,
+                            width: 135,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
                             colorGradient2:
@@ -265,7 +267,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             onTap: pickDateRange,
                             withGradient: true,
                             text: DateFormat('dd/MM/yyyy').format(end),
-                            width: 150,
+                            width: 135,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
                             colorGradient2:
@@ -385,8 +387,10 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                 ),
                 const SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.only(left: 15, top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -436,7 +440,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             withGradient: true,
                             text:
                                 '${timeIn!.hour.toString().padLeft(2, '0')}:${timeIn!.minute.toString().padLeft(2, '0')}',
-                            width: 150,
+                            width: 135,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
                             colorGradient2:
@@ -492,7 +496,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             withGradient: true,
                             text:
                                 '${timeOut!.hour.toString().padLeft(2, '0')}:${timeOut!.minute.toString().padLeft(2, '0')}',
-                            width: 150,
+                            width: 135,
                             colorGradient1:
                                 const Color.fromARGB(255, 0, 206, 203),
                             colorGradient2:
@@ -523,7 +527,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                 ),
                 const SizedBox(height: 15),
                 Container(
-                  margin: const EdgeInsets.only(left: 35),
+                  margin: const EdgeInsets.only(left: 65),
                   child: Row(
                     children: [
                       const Text(
@@ -590,7 +594,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 35),
+                  margin: const EdgeInsets.only(left: 30),
                   child: Row(
                     children: [
                       const Icon(Icons.flight_takeoff),
@@ -603,7 +607,6 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 10),
                       CustomButton(
                         onTap: () async {
                           TimeOfDay? newTimeDeparture = await showTimePicker(
@@ -631,7 +634,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         withGradient: true,
                         text:
                             '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
-                        width: 100,
+                        width: 80,
                         colorGradient1: const Color.fromARGB(255, 0, 206, 203),
                         colorGradient2: const Color.fromARGB(245, 4, 116, 177),
                       ),
@@ -639,7 +642,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(left: 35),
+                  margin: const EdgeInsets.only(left: 30),
                   child: Row(
                     children: [
                       const Icon(Icons.flight_land),
@@ -652,7 +655,6 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      const SizedBox(width: 10),
                       CustomButton(
                         onTap: () async {
                           TimeOfDay? newTimeReturn = await showTimePicker(
@@ -680,7 +682,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         withGradient: true,
                         text:
                             '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
-                        width: 100,
+                        width: 80,
                         colorGradient1: const Color.fromARGB(255, 0, 206, 203),
                         colorGradient2: const Color.fromARGB(245, 4, 116, 177),
                       ),

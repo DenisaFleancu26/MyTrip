@@ -193,25 +193,27 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: _entryField('Password', _controllerPassword, true),
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  GestureDetector(
-                    onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const ForgotPasswordScreen())),
-                    child: Container(
-                      height: 30,
-                      width: 140,
-                      margin: const EdgeInsets.only(left: 200),
-                      decoration: const BoxDecoration(borderRadius: null),
-                      child: const Center(
-                          child: Text(
-                        "Forgot your password?",
-                        style: TextStyle(
-                            fontSize: 13,
-                            color: Color.fromARGB(255, 0, 206, 203)),
-                      )),
+                  Container(
+                    alignment: Alignment.topRight,
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ForgotPasswordScreen())),
+                      child: Container(
+                        height: 30,
+                        width: 140,
+                        decoration: const BoxDecoration(borderRadius: null),
+                        margin: const EdgeInsets.only(right: 15),
+                        child: const Center(
+                            child: Text(
+                          "Forgot your password?",
+                          style: TextStyle(
+                              fontSize: 13,
+                              color: Color.fromARGB(255, 0, 206, 203)),
+                        )),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 30),
@@ -224,8 +226,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 50),
                   Container(
-                    margin: const EdgeInsets.only(left: 70),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         const Text(
                           "Don't have an account yet?",
