@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/change_password.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 
@@ -199,7 +200,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     endIndent: 5,
                   ),
                   GestureDetector(
-                    onTap: () => {},
+                    onTap: () => {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ChangePasswordScreen()),
+                      ),
+                    },
                     child: Container(
                       padding: const EdgeInsets.only(left: 15, top: 15),
                       child: Row(
