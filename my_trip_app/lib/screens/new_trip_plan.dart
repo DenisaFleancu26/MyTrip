@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
+import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/trip.dart';
 import '../auth.dart';
 import '../widgets/custom_button.dart';
@@ -112,6 +113,22 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
         dropDownValue,
         '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
         '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}');
+    setState(() {
+      _controllerName.clear();
+      _controllerDestination.clear();
+      _controllerHotel.clear();
+      _controllerAddress.clear();
+      _controllerContact.clear();
+      dateRange = DateTimeRange(
+        start: DateTime(2023),
+        end: DateTime(2023),
+      );
+      timeIn = TimeOfDay.now();
+      timeOut = TimeOfDay.now();
+      timeDeparture = TimeOfDay.now();
+      timeReturn = TimeOfDay.now();
+      errorMessage = 'Plan Trip added successfully!';
+    });
   }
 
   Future pickDateRange() async {
@@ -153,6 +170,12 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const NewTripPlanScreen()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileScreen()),
           );
           break;
       }
