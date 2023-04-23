@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
+import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/trip.dart';
 import '../auth.dart';
 import '../widgets/custom_button.dart';
@@ -153,6 +154,12 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const NewTripPlanScreen()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileScreen()),
           );
           break;
       }

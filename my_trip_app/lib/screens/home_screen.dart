@@ -5,6 +5,7 @@ import 'package:my_trip_app/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
+import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -415,10 +416,22 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       bottomTabIndex = index;
       switch (index) {
+        case 0:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomeScreen()),
+          );
+          break;
         case 1:
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const NewTripPlanScreen()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileScreen()),
           );
           break;
       }
