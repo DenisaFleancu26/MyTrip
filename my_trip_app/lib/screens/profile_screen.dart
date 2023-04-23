@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 
 import '../auth.dart';
+import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   int bottomTabIndex = 2;
   String userEmail = '';
   String userName = '';
+
+  final User? user = Auth().currentUser;
 
   @override
   void initState() {
@@ -33,8 +37,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     setState(() {
       if (userQuerySnapshot.docs.isNotEmpty) {
         userEmail = userQuerySnapshot.docs[0].data()['email'];
-        userName = userQuerySnapshot.docs[0].data()['firstName'] +
-            userQuerySnapshot.docs[0].data()['lastName'];
+        userName = userQuerySnapshot.docs[0].data()['name'] ?? '';
+        if (userName.isEmpty) {
+          final firstName = userQuerySnapshot.docs[0].data()['firstName'];
+          final lastName = userQuerySnapshot.docs[0].data()['lastName'];
+
+          userName = firstName + ' ' + lastName;
+        }
       }
     });
   }
@@ -63,6 +72,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           break;
       }
     });
+  }
+
+  Future<void> signOut() async {
+    await Auth().signOut();
   }
 
   @override
@@ -112,32 +125,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Icon(Icons.account_circle, size: 150),
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 25, top: 30),
+                    padding: const EdgeInsets.only(left: 15, top: 30),
                     child: Row(
                       children: [
-                        const Expanded(
-                          child: Text(
-                            "Username",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 90, 90, 90),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        const Text(
+                          "Username",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 90, 90, 90),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Expanded(
                           child: Container(
-                            alignment: Alignment.topRight,
+                            alignment: Alignment.bottomRight,
                             decoration: const BoxDecoration(borderRadius: null),
-                            margin: const EdgeInsets.only(right: 0),
-                            child: Center(
-                              child: Text(
-                                userName,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
+                            margin: const EdgeInsets.only(left: 10, right: 15),
+                            child: Text(
+                              userName,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 0, 0, 0),
                               ),
                             ),
                           ),
@@ -153,31 +162,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     endIndent: 5,
                   ),
                   Container(
-                    padding: const EdgeInsets.only(left: 25, top: 15),
+                    padding: const EdgeInsets.only(left: 15, top: 15),
                     child: Row(
                       children: [
-                        const Expanded(
-                          child: Text(
-                            "Email",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 90, 90, 90),
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                            ),
+                        const Text(
+                          "Email",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 90, 90, 90),
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Expanded(
                           child: Container(
-                            alignment: Alignment.topRight,
+                            alignment: Alignment.bottomRight,
                             decoration: const BoxDecoration(borderRadius: null),
-                            child: Center(
-                              child: Text(
-                                userEmail,
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                ),
+                            margin: const EdgeInsets.only(left: 10, right: 15),
+                            child: Text(
+                              userEmail,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                color: Color.fromARGB(255, 0, 0, 0),
                               ),
                             ),
                           ),
@@ -195,7 +201,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   GestureDetector(
                     onTap: () => {},
                     child: Container(
-                      padding: const EdgeInsets.only(left: 25, top: 15),
+                      padding: const EdgeInsets.only(left: 15, top: 15),
                       child: Row(
                         children: [
                           const Expanded(
@@ -229,9 +235,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     endIndent: 5,
                   ),
                   GestureDetector(
-                    onTap: () => {},
+                    onTap: () => {
+                      signOut,
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginScreen())),
+                    },
                     child: Container(
-                      padding: const EdgeInsets.only(left: 25, top: 15),
+                      padding: const EdgeInsets.only(left: 15, top: 15),
                       child: Row(
                         children: [
                           const Expanded(
