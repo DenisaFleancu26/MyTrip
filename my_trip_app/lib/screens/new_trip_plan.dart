@@ -45,8 +45,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
         hintText: title,
         border: InputBorder.none,
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-              width: 2, color: Color.fromARGB(255, 202, 202, 202)),
+          borderSide: const BorderSide(width: 1.5, color: Colors.cyan),
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
