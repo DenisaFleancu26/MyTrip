@@ -113,6 +113,22 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
         dropDownValue,
         '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
         '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}');
+    setState(() {
+      _controllerName.clear();
+      _controllerDestination.clear();
+      _controllerHotel.clear();
+      _controllerAddress.clear();
+      _controllerContact.clear();
+      dateRange = DateTimeRange(
+        start: DateTime(2023),
+        end: DateTime(2023),
+      );
+      timeIn = TimeOfDay.now();
+      timeOut = TimeOfDay.now();
+      timeDeparture = TimeOfDay.now();
+      timeReturn = TimeOfDay.now();
+      errorMessage = 'Plan Trip added successfully!';
+    });
   }
 
   Future pickDateRange() async {
