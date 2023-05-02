@@ -15,7 +15,9 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   String? errorMessage = '';
   bool isLogin = true;
-  bool _obscureText = true;
+  bool _obscureTextCurrent = true;
+  bool _obscureTextNew = true;
+  bool _obscureTextConfirm = true;
   int currentIndex = 2;
   int bottomTabIndex = 2;
 
@@ -106,10 +108,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             )));
   }
 
-  Widget _entryField(
-      String title, TextEditingController controller, bool hasObscureText) {
+  Widget _entryField(String title, TextEditingController controller,
+      bool hasObscureText, bool obscureText, int nrfield) {
     return TextField(
-      obscureText: hasObscureText ? _obscureText : false,
+      obscureText: hasObscureText ? obscureText : false,
       controller: controller,
       decoration: InputDecoration(
         hintText: title,
@@ -125,10 +127,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           child: GestureDetector(
             onTap: () {
               setState(() {
-                _obscureText = !_obscureText;
+                switch (nrfield) {
+                  case 1:
+                    _obscureTextCurrent = !_obscureTextCurrent;
+                    obscureText = _obscureTextCurrent;
+                    break;
+                  case 2:
+                    _obscureTextNew = !_obscureTextNew;
+                    obscureText = _obscureTextNew;
+                    break;
+                  case 3:
+                    _obscureTextConfirm = !_obscureTextConfirm;
+                    obscureText = _obscureTextConfirm;
+                    break;
+                }
               });
             },
-            child: Icon(_obscureText ? Icons.visibility : Icons.visibility_off),
+            child: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
           ),
         ),
       ),
@@ -193,8 +208,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               blurRadius: 4,
                               offset: const Offset(0, 4))
                         ]),
-                    child: _entryField(
-                        'Current Password', _controllerCurrent, true),
+                    child: _entryField('Current Password', _controllerCurrent,
+                        true, _obscureTextCurrent, 1),
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -208,7 +223,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               blurRadius: 4,
                               offset: const Offset(0, 4))
                         ]),
-                    child: _entryField('New Password', _controllerNew, true),
+                    child: _entryField('New Password', _controllerNew, true,
+                        _obscureTextNew, 2),
                   ),
                   const SizedBox(height: 20),
                   Container(
@@ -222,8 +238,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                               blurRadius: 4,
                               offset: const Offset(0, 4))
                         ]),
-                    child: _entryField(
-                        'Confirm New Password', _controllerConfirm, true),
+                    child: _entryField('Confirm New Password',
+                        _controllerConfirm, true, _obscureTextConfirm, 3),
                   ),
                   const SizedBox(height: 25),
                   _errorMessage(),
