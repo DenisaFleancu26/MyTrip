@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
+import 'package:my_trip_app/screens/trip_plan_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -504,7 +505,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   bottom: 7,
                   left: 35,
                   child: CustomButton(
-                    onTap: () {},
+                    onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TripPlanScreen())),
                     withGradient: false,
                     text: "View details",
                     color: Colors.cyan,
