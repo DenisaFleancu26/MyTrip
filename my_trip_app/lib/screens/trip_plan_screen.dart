@@ -5,8 +5,6 @@ import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 
-import '../widgets/custom_button.dart';
-
 class TripPlanScreen extends StatefulWidget {
   const TripPlanScreen({Key? key}) : super(key: key);
 
@@ -92,6 +90,75 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                   fit: BoxFit.cover,
                 ),
               ),
+            ),
+          ),
+          Positioned(
+            top: 15,
+            right: 15,
+            child: Row(
+              children: [
+                Container(
+                  transformAlignment: Alignment.center,
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color.fromARGB(73, 255, 255, 255),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: Offset(0, 4))
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: GestureDetector(
+                      onTap: () => {},
+                      child: const SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  transformAlignment: Alignment.center,
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color.fromARGB(73, 255, 255, 255),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: Offset(0, 4))
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: GestureDetector(
+                      onTap: () => {},
+                      child: const SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Icon(
+                          Icons.delete,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
           Positioned(
