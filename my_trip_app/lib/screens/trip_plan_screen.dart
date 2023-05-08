@@ -115,7 +115,11 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
-                      onTap: () => {},
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditPlanScreen()),
+                      ),
                       child: const SizedBox(
                         height: 30,
                         width: 30,
