@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/edit_plan.dart';
 
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
@@ -439,7 +440,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 40),
+                                  SizedBox(width: 20),
                                   Text(
                                     "Pink Hotel",
                                     style: TextStyle(
@@ -460,12 +461,15 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              const Text(
-                                "20 Bis Rue Dugommier, 75012 Corfu, Greece",
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 0, 0, 0),
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                width: 250,
+                                child: const Text(
+                                  "20 Bis Rue Dugommier, 75012 Corfu, Greece",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -479,7 +483,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 40),
+                                  SizedBox(width: 20),
                                   Text(
                                     "+33143434773",
                                     style: TextStyle(
@@ -501,7 +505,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 40),
+                                  SizedBox(width: 20),
                                   Text(
                                     "12:00",
                                     style: TextStyle(
@@ -523,7 +527,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 40),
+                                  SizedBox(width: 20),
                                   Text(
                                     "10:00",
                                     style: TextStyle(
@@ -561,7 +565,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 40),
+                              const SizedBox(height: 20),
                               Row(
                                 children: const [
                                   Text(
@@ -572,7 +576,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 40),
+                                  SizedBox(width: 20),
                                   Text(
                                     "Plane",
                                     style: TextStyle(
@@ -594,7 +598,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 40),
+                                  SizedBox(width: 20),
                                   Text(
                                     "15:30",
                                     style: TextStyle(
@@ -616,7 +620,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 40),
+                                  SizedBox(width: 20),
                                   Text(
                                     "16:00",
                                     style: TextStyle(
