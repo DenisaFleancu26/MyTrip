@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:my_trip_app/models/next_destination.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
+import 'package:my_trip_app/services/json.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/trip.dart';
 import '../auth.dart';
@@ -46,8 +48,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
         hintText: title,
         border: InputBorder.none,
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-              width: 2, color: Color.fromARGB(255, 202, 202, 202)),
+          borderSide: const BorderSide(width: 1.5, color: Colors.cyan),
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
@@ -100,19 +101,26 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
 
     Trip trip = Trip();
 
+    String destinationName = _controllerDestination.text;
+    destinationName =
+        destinationName.substring(0, destinationName.indexOf(','));
+    ImageDestination imageDestination = await fetchImages(destinationName);
+
     await trip.addPlanTrip(
-        DateFormat('dd/MM/yyyy').format(startDate),
-        DateFormat('dd/MM/yyyy').format(endDate),
-        _controllerName.text,
-        _controllerDestination.text,
-        _controllerHotel.text,
-        _controllerAddress.text,
-        _controllerContact.text,
-        '${timeIn!.hour.toString().padLeft(2, '0')}:${timeIn!.minute.toString().padLeft(2, '0')}',
-        '${timeOut!.hour.toString().padLeft(2, '0')}:${timeOut!.minute.toString().padLeft(2, '0')}',
-        dropDownValue,
-        '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
-        '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}');
+      DateFormat('dd/MM/yyyy').format(startDate),
+      DateFormat('dd/MM/yyyy').format(endDate),
+      _controllerName.text,
+      _controllerDestination.text,
+      _controllerHotel.text,
+      _controllerAddress.text,
+      _controllerContact.text,
+      '${timeIn!.hour.toString().padLeft(2, '0')}:${timeIn!.minute.toString().padLeft(2, '0')}',
+      '${timeOut!.hour.toString().padLeft(2, '0')}:${timeOut!.minute.toString().padLeft(2, '0')}',
+      dropDownValue,
+      '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
+      '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
+      imageDestination.url,
+    );
     setState(() {
       _controllerName.clear();
       _controllerDestination.clear();
