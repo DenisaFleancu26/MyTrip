@@ -3,18 +3,20 @@ import 'package:my_trip_app/auth.dart';
 
 class Trip {
   Future<void> addPlanTrip(
-      String tripStart,
-      String tripEnd,
-      String name,
-      String destination,
-      String hotel,
-      String address,
-      String contact,
-      String checkIn,
-      String checkOut,
-      String transport,
-      String departure,
-      String retur) async {
+    String tripStart,
+    String tripEnd,
+    String name,
+    String destination,
+    String hotel,
+    String address,
+    String contact,
+    String checkIn,
+    String checkOut,
+    String transport,
+    String departure,
+    String retur,
+    String imageUrl,
+  ) async {
     final userQuerySnapshot = await FirebaseFirestore.instance
         .collection('Users')
         .where('email', isEqualTo: Auth().currentUser?.email)
@@ -39,6 +41,7 @@ class Trip {
         'transport': transport,
         'departure': departure,
         'return': retur,
+        'imageUrl': imageUrl,
       });
     }
   }
