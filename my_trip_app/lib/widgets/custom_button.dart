@@ -9,6 +9,7 @@ class CustomButton extends StatelessWidget {
       this.colorGradient1,
       this.colorGradient2,
       this.width,
+      this.height,
       this.color,
       this.textColor});
 
@@ -18,6 +19,7 @@ class CustomButton extends StatelessWidget {
   final Color? colorGradient2;
   final String text;
   final double? width;
+  final double? height;
   final Color? color;
   final Color? textColor;
 
@@ -28,7 +30,7 @@ class CustomButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         child: Container(
-          height: 50,
+          height: height ?? 50,
           width: width ?? MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

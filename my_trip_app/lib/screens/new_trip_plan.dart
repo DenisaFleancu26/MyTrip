@@ -713,6 +713,57 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                   ),
                 ),
                 const SizedBox(height: 30),
+                Container(
+                  margin: const EdgeInsets.only(left: 35),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.description),
+                      SizedBox(width: 10),
+                      Text(
+                        "Notes",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              spreadRadius: 0,
+                              blurRadius: 4,
+                              offset: const Offset(0, 4))
+                        ]),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Notes..",
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(255, 202, 202, 202)),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        contentPadding: const EdgeInsets.only(
+                            left: 30, top: 15, bottom: 15),
+                      ),
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 30),
                 CustomButton(
                   onTap: addPlan,
                   withGradient: true,
