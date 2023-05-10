@@ -27,6 +27,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
   int _buttonSelected = 1;
   bool _hotelVisible = true;
   bool _transportVisible = false;
+  bool _notesVisible = false;
   String dropDownValue = 'Plane';
 
   TimeOfDay? timeIn = const TimeOfDay(hour: 12, minute: 12);
@@ -38,6 +39,9 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
   final TextEditingController _controllerAddress = TextEditingController();
   final TextEditingController _controllerContact = TextEditingController();
 
+  final TextEditingController controllerNotes = TextEditingController(
+      text: "Don't forget your passport and call the hotel before take-off.");
+
   DateTimeRange dateRange = DateTimeRange(
     start: DateTime(2023),
     end: DateTime(2023),
@@ -47,6 +51,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
     setState(() {
       _hotelVisible = true;
       _transportVisible = false;
+      _notesVisible = false;
     });
   }
 
@@ -54,6 +59,15 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
     setState(() {
       _hotelVisible = false;
       _transportVisible = true;
+      _notesVisible = false;
+    });
+  }
+
+  void _toggleNotes() {
+    setState(() {
+      _hotelVisible = false;
+      _transportVisible = false;
+      _notesVisible = true;
     });
   }
 
@@ -374,13 +388,14 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 420,
+                    height: 390,
                     child: ListView(
                       shrinkWrap: true,
                       children: destination,
                     ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
@@ -418,7 +433,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           RotatedBox(
                             quarterTurns: -1,
                             child: GestureDetector(
@@ -451,11 +466,45 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10),
+                          RotatedBox(
+                            quarterTurns: -1,
+                            child: GestureDetector(
+                              onTap: () => {
+                                setState(() {
+                                  _buttonSelected = 3;
+                                  _toggleNotes();
+                                }),
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: _buttonSelected == 3
+                                      ? const Color.fromARGB(255, 0, 206, 203)
+                                      : Color.fromARGB(39, 71, 71, 71),
+                                  borderRadius: const BorderRadius.vertical(
+                                      bottom: Radius.circular(30)),
+                                ),
+                                height: 30,
+                                width: 80,
+                                child: const Center(
+                                  child: Text(
+                                    "Notes",
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       if (_hotelVisible)
                         Container(
-                          padding: const EdgeInsets.only(left: 40, right: 15),
+                          padding: const EdgeInsets.only(
+                              left: 40, right: 15, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -680,7 +729,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                         ),
                       if (_transportVisible)
                         Container(
-                          padding: const EdgeInsets.only(left: 40),
+                          padding: const EdgeInsets.only(left: 40, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -689,9 +738,9 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                   Icon(
                                     Icons.connecting_airports,
                                     color: Color.fromARGB(255, 0, 0, 0),
-                                    size: 30,
+                                    size: 20,
                                   ),
-                                  SizedBox(width: 10),
+                                  SizedBox(width: 5),
                                   Text(
                                     "Transport details",
                                     style: TextStyle(
@@ -892,6 +941,71 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                     ),
                                   ),
                                 ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      if (_notesVisible)
+                        Container(
+                          margin: const EdgeInsets.only(left: 40, top: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: const [
+                                  Icon(
+                                    Icons.description,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    size: 20,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    "Notes",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color:
+                                                Colors.black.withOpacity(0.25),
+                                            spreadRadius: 0,
+                                            blurRadius: 4,
+                                            offset: const Offset(0, 4))
+                                      ]),
+                                  width: 256,
+                                  child: TextField(
+                                    controller: controllerNotes,
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: const BorderSide(
+                                            width: 2,
+                                            color: Color.fromARGB(
+                                                255, 202, 202, 202)),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      contentPadding: const EdgeInsets.only(
+                                          left: 15,
+                                          top: 15,
+                                          bottom: 15,
+                                          right: 15),
+                                    ),
+                                    keyboardType: TextInputType.multiline,
+                                    maxLines: null,
+                                  ),
+                                ),
                               ),
                             ],
                           ),

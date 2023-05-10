@@ -26,11 +26,13 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
   int _buttonSelected = 1;
   bool _hotelVisible = true;
   bool _transportVisible = false;
+  bool _notesVisible = false;
 
   void _toggleHotel() {
     setState(() {
       _hotelVisible = true;
       _transportVisible = false;
+      _notesVisible = false;
     });
   }
 
@@ -38,6 +40,15 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
     setState(() {
       _hotelVisible = false;
       _transportVisible = true;
+      _notesVisible = false;
+    });
+  }
+
+  void _toggleNotes() {
+    setState(() {
+      _hotelVisible = false;
+      _transportVisible = false;
+      _notesVisible = true;
     });
   }
 
@@ -330,13 +341,14 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(
-                    height: 420,
+                    height: 390,
                     child: ListView(
                       shrinkWrap: true,
                       children: destination,
                     ),
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Column(
@@ -374,7 +386,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           RotatedBox(
                             quarterTurns: -1,
                             child: GestureDetector(
@@ -407,11 +419,44 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10),
+                          RotatedBox(
+                            quarterTurns: -1,
+                            child: GestureDetector(
+                              onTap: () => {
+                                setState(() {
+                                  _buttonSelected = 3;
+                                  _toggleNotes();
+                                }),
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 80,
+                                decoration: BoxDecoration(
+                                  color: _buttonSelected == 3
+                                      ? const Color.fromARGB(255, 0, 206, 203)
+                                      : Color.fromARGB(39, 71, 71, 71),
+                                  borderRadius: const BorderRadius.vertical(
+                                      bottom: Radius.circular(30)),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    "Notes",
+                                    style: TextStyle(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       if (_hotelVisible)
                         Container(
-                          padding: const EdgeInsets.only(left: 40),
+                          padding: const EdgeInsets.only(left: 40, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -449,7 +494,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                     "Pink Hotel",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 17,
+                                      fontSize: 15,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -547,7 +592,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                         ),
                       if (_transportVisible)
                         Container(
-                          padding: const EdgeInsets.only(left: 40),
+                          padding: const EdgeInsets.only(left: 40, top: 10),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -556,7 +601,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                   Icon(
                                     Icons.connecting_airports,
                                     color: Color.fromARGB(255, 0, 0, 0),
-                                    size: 30,
+                                    size: 20,
                                   ),
                                   SizedBox(width: 10),
                                   Text(
@@ -569,7 +614,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                   ),
                                 ],
                               ),
-                              const SizedBox(height: 20),
+                              const SizedBox(height: 30),
                               Row(
                                 children: const [
                                   Text(
@@ -634,6 +679,46 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                     ),
                                   ),
                                 ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      if (_notesVisible)
+                        Container(
+                          margin: const EdgeInsets.only(left: 40, top: 10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                children: const [
+                                  Icon(
+                                    Icons.description,
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    size: 20,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(
+                                    "Notes",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 30),
+                              Container(
+                                width: 250,
+                                margin: const EdgeInsets.only(),
+                                child: const Text(
+                                  "Don't forget your passport and call the hotel before take-off.",
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
