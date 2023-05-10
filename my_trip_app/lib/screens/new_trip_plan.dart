@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:my_trip_app/models/next_destination.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/services/json.dart';
+import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/trip.dart';
 import '../auth.dart';
 import '../widgets/custom_button.dart';
@@ -120,6 +121,22 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
       imageDestination.url,
     );
+    setState(() {
+      _controllerName.clear();
+      _controllerDestination.clear();
+      _controllerHotel.clear();
+      _controllerAddress.clear();
+      _controllerContact.clear();
+      dateRange = DateTimeRange(
+        start: DateTime(2023),
+        end: DateTime(2023),
+      );
+      timeIn = TimeOfDay.now();
+      timeOut = TimeOfDay.now();
+      timeDeparture = TimeOfDay.now();
+      timeReturn = TimeOfDay.now();
+      errorMessage = 'Plan Trip added successfully!';
+    });
   }
 
   Future pickDateRange() async {
@@ -161,6 +178,12 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const NewTripPlanScreen()),
+          );
+          break;
+        case 2:
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ProfileScreen()),
           );
           break;
       }
@@ -695,6 +718,57 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         colorGradient2: const Color.fromARGB(245, 4, 116, 177),
                       ),
                     ],
+                  ),
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  margin: const EdgeInsets.only(left: 35),
+                  child: Row(
+                    children: const [
+                      Icon(Icons.description),
+                      SizedBox(width: 10),
+                      Text(
+                        "Notes",
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black.withOpacity(0.25),
+                              spreadRadius: 0,
+                              blurRadius: 4,
+                              offset: const Offset(0, 4))
+                        ]),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        hintText: "Notes..",
+                        border: InputBorder.none,
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                              width: 2,
+                              color: Color.fromARGB(255, 202, 202, 202)),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        contentPadding: const EdgeInsets.only(
+                            left: 30, top: 15, bottom: 15),
+                      ),
+                      keyboardType: TextInputType.multiline,
+                      maxLines: null,
+                    ),
                   ),
                 ),
                 const SizedBox(height: 30),
