@@ -4,9 +4,9 @@ import 'package:my_trip_app/constants/app_urls.dart';
 import '../models/next_destination.dart';
 import 'package:http/http.dart' as http;
 
-Future<ImageDestination> fetchImages() async {
+Future<ImageDestination> fetchImages(String countryName) async {
   final response = await http.get(
-    Uri.parse(AppUrls.getImagesForCountry("corfu")),
+    Uri.parse(AppUrls.getImagesForCountry(countryName)),
 
     // Send authorization headers to the backend.
     headers: {
