@@ -39,6 +39,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
   final TextEditingController _controllerHotel = TextEditingController();
   final TextEditingController _controllerAddress = TextEditingController();
   final TextEditingController _controllerContact = TextEditingController();
+  final TextEditingController _controllerNotes = TextEditingController();
 
   Widget _entryField(
       String title, TextEditingController controller, bool hasObscureText) {
@@ -96,6 +97,10 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       });
       return;
     }
+    if (_controllerNotes.text.isEmpty) {
+      _controllerNotes.text = ' ';
+    }
+
     DateTime startDate = dateRange.start;
     DateTime endDate = dateRange.end;
 
@@ -120,6 +125,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
       '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
       imageDestination.url,
+      _controllerNotes.text,
     );
     setState(() {
       _controllerName.clear();
@@ -127,6 +133,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       _controllerHotel.clear();
       _controllerAddress.clear();
       _controllerContact.clear();
+      _controllerNotes.clear();
       dateRange = DateTimeRange(
         start: DateTime(2023),
         end: DateTime(2023),
@@ -754,6 +761,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                               offset: const Offset(0, 4))
                         ]),
                     child: TextField(
+                      controller: _controllerNotes,
                       decoration: InputDecoration(
                         hintText: "Notes..",
                         border: InputBorder.none,

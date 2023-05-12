@@ -16,6 +16,7 @@ class Trip {
     String departure,
     String retur,
     String imageUrl,
+    String notes,
   ) async {
     final userQuerySnapshot = await FirebaseFirestore.instance
         .collection('Users')
@@ -42,6 +43,7 @@ class Trip {
         'departure': departure,
         'return': retur,
         'imageUrl': imageUrl,
+        'notes': notes,
       });
     }
   }
