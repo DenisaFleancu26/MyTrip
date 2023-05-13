@@ -8,7 +8,10 @@ import 'package:my_trip_app/models/next_destination.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
+import 'package:my_trip_app/screens/trip_plan_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
+
+import '../models/plan.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -242,6 +245,8 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  late Plan plan;
+
   Future<List<dynamic>> _fetchDestinationsFromFirebase() async {
     final userQuerySnapshot = await FirebaseFirestore.instance
         .collection('Users')
@@ -257,8 +262,10 @@ class _HomeScreenState extends State<HomeScreen> {
           .get();
 
       if (trips.docs.isNotEmpty) {
-        trips.docs.forEach((element) =>
-            destinations.contains(element) ? null : destinations.add(element));
+        trips.docs.forEach((element) => {
+              //plan = Plan.fromMap(element as Map<String, dynamic>),
+              destinations.contains(element) ? null : destinations.add(element)
+            });
       }
     }
 
@@ -335,6 +342,7 @@ class _HomeScreenState extends State<HomeScreen> {
             future: _fetchDestinationsFromFirebase(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                plan = Plan.fromJson(destinations[0]);
                 String destinationName = destinations.first['destination'];
                 destinationName =
                     destinationName.substring(0, destinationName.indexOf(','));
@@ -381,16 +389,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   // TODO improve
                   Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 200,
-                          height: 300,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: NetworkImage(destinations[0]['imageUrl']),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            if (destinations.isNotEmpty) {
+                              Plan trip = Plan.fromJson(destinations[0]);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TripPlanScreen(plan: trip),
+                                ),
+                              );
+                            }
+                          }),
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: 200,
+                            height: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image:
+                                    NetworkImage(destinations[0]['imageUrl']),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -411,16 +436,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 200,
-                          height: 300,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: NetworkImage(destinations[1]['imageUrl']),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            if (destinations.isNotEmpty) {
+                              Plan trip = Plan.fromJson(destinations[1]);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TripPlanScreen(plan: trip),
+                                ),
+                              );
+                            }
+                          }),
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: 200,
+                            height: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image:
+                                    NetworkImage(destinations[1]['imageUrl']),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -441,16 +483,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 200,
-                          height: 300,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: NetworkImage(destinations[2]['imageUrl']),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            if (destinations.isNotEmpty) {
+                              Plan trip = Plan.fromJson(destinations[2]);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TripPlanScreen(plan: trip),
+                                ),
+                              );
+                            }
+                          }),
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: 200,
+                            height: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image:
+                                    NetworkImage(destinations[2]['imageUrl']),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -471,16 +530,33 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          width: 200,
-                          height: 300,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            image: DecorationImage(
-                              image: NetworkImage(destinations[3]['imageUrl']),
-                              fit: BoxFit.cover,
+                      GestureDetector(
+                        onTap: () => {
+                          setState(() {
+                            if (destinations.isNotEmpty) {
+                              Plan trip = Plan.fromJson(destinations[3]);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      TripPlanScreen(plan: trip),
+                                ),
+                              );
+                            }
+                          }),
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            width: 200,
+                            height: 300,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: DecorationImage(
+                                image:
+                                    NetworkImage(destinations[3]['imageUrl']),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -551,7 +627,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           bottom: 7,
                           left: 35,
                           child: CustomButton(
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                if (destinations.isNotEmpty) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          TripPlanScreen(plan: plan),
+                                    ),
+                                  );
+                                }
+                              });
+                            },
                             withGradient: false,
                             text: "View details",
                             color: Colors.cyan,

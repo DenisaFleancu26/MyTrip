@@ -6,8 +6,11 @@ import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 
+import '../models/plan.dart';
+
 class TripPlanScreen extends StatefulWidget {
-  const TripPlanScreen({Key? key}) : super(key: key);
+  final Plan plan;
+  const TripPlanScreen({Key? key, required this.plan}) : super(key: key);
 
   @override
   State<TripPlanScreen> createState() => _TripPlanScreenState();
@@ -15,11 +18,19 @@ class TripPlanScreen extends StatefulWidget {
 
 class _TripPlanScreenState extends State<TripPlanScreen> {
   User user = FirebaseAuth.instance.currentUser!;
+  late String _bigPhoto;
+  late final String _smallPhoto1;
+  late final String _smallPhoto2;
+  late final String _smallPhoto3;
 
-  String _bigPhoto = 'assets/images/dummy_datas/corfu1.jpg';
-  final String _smallPhoto1 = 'assets/images/dummy_datas/corfu1.jpg';
-  final String _smallPhoto2 = 'assets/images/dummy_datas/corfu2.jpg';
-  final String _smallPhoto3 = 'assets/images/dummy_datas/corfu3.jpg';
+  @override
+  void initState() {
+    super.initState();
+    _bigPhoto = widget.plan.imageUrl;
+    _smallPhoto1 = widget.plan.imageUrl;
+    _smallPhoto2 = 'assets/images/dummy_datas/corfu2.jpg';
+    _smallPhoto3 = 'assets/images/dummy_datas/corfu3.jpg';
+  }
 
   int bottomTabIndex = 0;
   int _selectedPhotoIndex = 1;
@@ -98,7 +109,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                 borderRadius:
                     const BorderRadius.vertical(bottom: Radius.circular(30)),
                 image: DecorationImage(
-                  image: AssetImage(_bigPhoto),
+                  image: NetworkImage(_bigPhoto),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -181,16 +192,16 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
             bottom: 70,
             left: 25,
             child: Row(
-              children: const [
-                Icon(
+              children: [
+                const Icon(
                   Icons.location_on,
                   color: Colors.white,
                   size: 40,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text(
-                  "Corfu",
-                  style: TextStyle(
+                  widget.plan.name,
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255),
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
@@ -199,24 +210,24 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
               ],
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 40,
             left: 25,
             child: Text(
-              "Corfu, Greece",
-              style: TextStyle(
+              widget.plan.destination,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 15,
             left: 25,
             child: Text(
-              "15/10/2023 - 20/10/2023",
-              style: TextStyle(
+              '${widget.plan.tripStart} - ${widget.plan.tripEnd}',
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
@@ -247,19 +258,23 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
                       onTap: () => {
-                        _changeBigPhoto(_smallPhoto1),
-                        _selectedPhotoIndex = 1
+                        setState(() {
+                          _changeBigPhoto(_smallPhoto1);
+                          _selectedPhotoIndex = 1;
+                        }),
                       },
-                      child: SizedBox(
+                      child: Container(
                         height: 40,
                         width: 40,
-                        child: Transform.scale(
-                          scale: _selectedPhotoIndex == 1 ? 1.5 : 1.0,
-                          child: Image.asset(
-                            _smallPhoto1,
-                            fit: BoxFit.cover,
-                          ),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: NetworkImage(_smallPhoto1),
+                              fit: BoxFit.cover),
                         ),
+                        transform: Matrix4.diagonal3Values(
+                            _selectedPhotoIndex == 1 ? 1.2 : 1.0,
+                            _selectedPhotoIndex == 1 ? 1.2 : 1.0,
+                            1.0),
                       ),
                     ),
                   ),
@@ -267,19 +282,24 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
                       onTap: () => {
-                        _changeBigPhoto(_smallPhoto2),
-                        _selectedPhotoIndex = 2
+                        setState(() {
+                          _changeBigPhoto(_smallPhoto1);
+                          _selectedPhotoIndex = 2;
+                        }),
                       },
-                      child: SizedBox(
+                      child: Container(
                         height: 40,
                         width: 40,
-                        child: Transform.scale(
-                          scale: _selectedPhotoIndex == 2 ? 1.5 : 1.0,
-                          child: Image.asset(
-                            _smallPhoto2,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(_smallPhoto1),
                             fit: BoxFit.cover,
                           ),
                         ),
+                        transform: Matrix4.diagonal3Values(
+                            _selectedPhotoIndex == 2 ? 1.2 : 1.0,
+                            _selectedPhotoIndex == 2 ? 1.2 : 1.0,
+                            1.0),
                       ),
                     ),
                   ),
@@ -287,19 +307,24 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
                       onTap: () => {
-                        _changeBigPhoto(_smallPhoto3),
-                        _selectedPhotoIndex = 3
+                        setState(() {
+                          _changeBigPhoto(_smallPhoto1);
+                          _selectedPhotoIndex = 3;
+                        }),
                       },
-                      child: SizedBox(
+                      child: Container(
                         height: 40,
                         width: 40,
-                        child: Transform.scale(
-                          scale: _selectedPhotoIndex == 3 ? 1.5 : 1.0,
-                          child: Image.asset(
-                            _smallPhoto3,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(_smallPhoto1),
                             fit: BoxFit.cover,
                           ),
                         ),
+                        transform: Matrix4.diagonal3Values(
+                            _selectedPhotoIndex == 3 ? 1.2 : 1.0,
+                            _selectedPhotoIndex == 3 ? 1.2 : 1.0,
+                            1.0),
                       ),
                     ),
                   ),
@@ -480,8 +505,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                               const SizedBox(height: 30),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "Name:",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
@@ -489,10 +514,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
-                                    "Pink Hotel",
-                                    style: TextStyle(
+                                    widget.plan.hotel,
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -510,11 +535,11 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                 ),
                               ),
                               const SizedBox(height: 10),
-                              Container(
+                              SizedBox(
                                 width: 250,
-                                child: const Text(
-                                  "20 Bis Rue Dugommier, 75012 Corfu, Greece",
-                                  style: TextStyle(
+                                child: Text(
+                                  widget.plan.address,
+                                  style: const TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
@@ -523,8 +548,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "Contact:",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
@@ -532,10 +557,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
-                                    "+33143434773",
-                                    style: TextStyle(
+                                    widget.plan.contact,
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -545,8 +570,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "Check_In:",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
@@ -554,10 +579,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
-                                    "12:00",
-                                    style: TextStyle(
+                                    widget.plan.checkIn,
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -567,8 +592,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "Check_Out:",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
@@ -576,10 +601,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
-                                    "10:00",
-                                    style: TextStyle(
+                                    widget.plan.checkOut,
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -616,8 +641,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                               const SizedBox(height: 30),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "Transport:",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
@@ -625,10 +650,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
-                                    "Plane",
-                                    style: TextStyle(
+                                    widget.plan.transport,
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -638,8 +663,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "Departure to destination:",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
@@ -647,10 +672,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
-                                    "15:30",
-                                    style: TextStyle(
+                                    widget.plan.departure,
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -660,8 +685,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children: const [
-                                  Text(
+                                children: [
+                                  const Text(
                                     "Departure from destination:",
                                     style: TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
@@ -669,10 +694,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  SizedBox(width: 20),
+                                  const SizedBox(width: 20),
                                   Text(
-                                    "16:00",
-                                    style: TextStyle(
+                                    widget.plan.retur,
+                                    style: const TextStyle(
                                       color: Color.fromARGB(255, 0, 0, 0),
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold,
@@ -711,9 +736,9 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                               Container(
                                 width: 250,
                                 margin: const EdgeInsets.only(),
-                                child: const Text(
-                                  "Don't forget your passport and call the hotel before take-off.",
-                                  style: TextStyle(
+                                child: Text(
+                                  widget.plan.notes,
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
