@@ -140,7 +140,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                       onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const EditPlanScreen()),
+                            builder: (context) =>
+                                EditPlanScreen(plan: widget.plan)),
                       ),
                       child: const SizedBox(
                         height: 30,

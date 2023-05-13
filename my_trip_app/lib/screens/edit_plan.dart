@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -7,8 +8,12 @@ import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
+import '../auth.dart';
+import '../models/plan.dart';
+
 class EditPlanScreen extends StatefulWidget {
-  const EditPlanScreen({Key? key}) : super(key: key);
+  final Plan plan;
+  const EditPlanScreen({Key? key, required this.plan}) : super(key: key);
 
   @override
   State<EditPlanScreen> createState() => _EditPlanScreenState();
@@ -17,10 +22,10 @@ class EditPlanScreen extends StatefulWidget {
 class _EditPlanScreenState extends State<EditPlanScreen> {
   User user = FirebaseAuth.instance.currentUser!;
 
-  String _bigPhoto = 'assets/images/dummy_datas/corfu1.jpg';
-  final String _smallPhoto1 = 'assets/images/dummy_datas/corfu1.jpg';
-  final String _smallPhoto2 = 'assets/images/dummy_datas/corfu2.jpg';
-  final String _smallPhoto3 = 'assets/images/dummy_datas/corfu3.jpg';
+  late String _bigPhoto;
+  late final String _smallPhoto1;
+  late final String _smallPhoto2;
+  late final String _smallPhoto3;
 
   int bottomTabIndex = 0;
   int _selectedPhotoIndex = 1;
@@ -28,24 +33,154 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
   bool _hotelVisible = true;
   bool _transportVisible = false;
   bool _notesVisible = false;
-  String dropDownValue = 'Plane';
+  late String dropDownValue;
 
-  TimeOfDay? timeIn = const TimeOfDay(hour: 12, minute: 12);
-  TimeOfDay? timeOut = const TimeOfDay(hour: 12, minute: 12);
-  TimeOfDay? timeDeparture = const TimeOfDay(hour: 12, minute: 12);
-  TimeOfDay? timeReturn = const TimeOfDay(hour: 12, minute: 12);
+  late TimeOfDay? timeIn;
+  late TimeOfDay? timeOut;
+  late TimeOfDay? timeDeparture;
+  late TimeOfDay? timeReturn;
 
-  final TextEditingController _controllerHotel = TextEditingController();
-  final TextEditingController _controllerAddress = TextEditingController();
-  final TextEditingController _controllerContact = TextEditingController();
+  late TextEditingController _controllerHotel = TextEditingController();
+  late TextEditingController _controllerAddress = TextEditingController();
+  late TextEditingController _controllerContact = TextEditingController();
 
-  final TextEditingController controllerNotes = TextEditingController(
-      text: "Don't forget your passport and call the hotel before take-off.");
+  late TextEditingController _controllerNotes = TextEditingController();
 
-  DateTimeRange dateRange = DateTimeRange(
-    start: DateTime(2023),
-    end: DateTime(2023),
-  );
+  late DateTimeRange dateRange;
+  String? errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _bigPhoto = widget.plan.imageUrl;
+    _smallPhoto1 = widget.plan.imageUrl;
+    _smallPhoto2 = 'assets/images/dummy_datas/corfu2.jpg';
+    _smallPhoto3 = 'assets/images/dummy_datas/corfu3.jpg';
+    _controllerHotel = TextEditingController(text: widget.plan.hotel);
+    _controllerAddress = TextEditingController(text: widget.plan.address);
+    _controllerContact = TextEditingController(text: widget.plan.contact);
+    _controllerNotes = TextEditingController(text: widget.plan.notes);
+
+    dateRange = DateTimeRange(
+      start: DateFormat('dd/MM/yyyy').parse(widget.plan.tripStart),
+      end: DateFormat('dd/MM/yyyy').parse(widget.plan.tripEnd),
+    );
+
+    List<String> parts1 = widget.plan.checkIn.split(":");
+    int hour1 = int.parse(parts1[0]);
+    int minute1 = int.parse(parts1[1]);
+    timeIn = TimeOfDay(hour: hour1, minute: minute1);
+
+    List<String> parts2 = widget.plan.checkOut.split(":");
+    int hour2 = int.parse(parts2[0]);
+    int minute2 = int.parse(parts2[1]);
+    timeOut = TimeOfDay(hour: hour2, minute: minute2);
+
+    List<String> parts3 = widget.plan.departure.split(":");
+    int hour3 = int.parse(parts3[0]);
+    int minute3 = int.parse(parts3[1]);
+    timeDeparture = TimeOfDay(hour: hour3, minute: minute3);
+
+    List<String> parts4 = widget.plan.retur.split(":");
+    int hour4 = int.parse(parts4[0]);
+    int minute4 = int.parse(parts4[1]);
+    timeReturn = TimeOfDay(hour: hour4, minute: minute4);
+
+    dropDownValue = widget.plan.transport;
+  }
+
+  Widget _errorMessage() {
+    return Center(
+        child: Text(errorMessage == '' ? '' : "$errorMessage!",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 199, 6, 6),
+              fontSize: 15,
+            )));
+  }
+
+  Future<void> editPlan() async {
+    if (_controllerHotel.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter the name of the hotel";
+      });
+      return;
+    }
+    if (_controllerAddress.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter the hotel address";
+      });
+      return;
+    }
+    if (_controllerContact.text.isEmpty) {
+      setState(() {
+        errorMessage = "Please enter hotel contact details";
+      });
+      return;
+    }
+    if (_controllerNotes.text.isEmpty) {
+      _controllerNotes.text = ' ';
+    }
+
+    final userQuerySnapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .where('email', isEqualTo: Auth().currentUser?.email)
+        .get();
+
+    if (userQuerySnapshot.docs.isNotEmpty) {
+      final userId = userQuerySnapshot.docs.first.id;
+      var trip = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('trip-plan')
+          .where('start', isEqualTo: widget.plan.tripStart)
+          .where('end', isEqualTo: widget.plan.tripEnd)
+          .where('name', isEqualTo: widget.plan.name)
+          .where('destination', isEqualTo: widget.plan.destination)
+          .where('hotel', isEqualTo: widget.plan.hotel)
+          .where('address', isEqualTo: widget.plan.address)
+          .where('contact', isEqualTo: widget.plan.contact)
+          .where('check-in', isEqualTo: widget.plan.checkIn)
+          .where('check-out', isEqualTo: widget.plan.checkOut)
+          .where('transport', isEqualTo: widget.plan.transport)
+          .where('departure', isEqualTo: widget.plan.departure)
+          .where('return', isEqualTo: widget.plan.retur)
+          .where('imageUrl', isEqualTo: widget.plan.imageUrl)
+          .where('notes', isEqualTo: widget.plan.notes);
+
+      var querySnapshot = await trip.get();
+
+      DateTime startDate = dateRange.start;
+      DateTime endDate = dateRange.end;
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var documentSnapshot = querySnapshot.docs[0];
+        var documentReference = documentSnapshot.reference;
+        await documentReference.update({
+          'start': DateFormat('dd/MM/yyyy').format(startDate),
+          'end': DateFormat('dd/MM/yyyy').format(endDate),
+          'hotel': _controllerHotel.text,
+          'address': _controllerAddress.text,
+          'contact': _controllerContact.text,
+          'check-in':
+              '${timeIn!.hour.toString().padLeft(2, '0')}:${timeIn!.minute.toString().padLeft(2, '0')}',
+          'check-out':
+              '${timeOut!.hour.toString().padLeft(2, '0')}:${timeOut!.minute.toString().padLeft(2, '0')}',
+          'transport': dropDownValue,
+          'departure':
+              '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
+          'return':
+              '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
+          'notes': _controllerNotes.text
+        });
+      }
+      setState(() {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      });
+    }
+  }
 
   void _toggleHotel() {
     setState(() {
@@ -162,7 +297,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                 borderRadius:
                     const BorderRadius.vertical(bottom: Radius.circular(30)),
                 image: DecorationImage(
-                  image: AssetImage(_bigPhoto),
+                  image: NetworkImage(_bigPhoto),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -188,7 +323,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: GestureDetector(
-                  onTap: () => {},
+                  onTap: editPlan,
                   child: const SizedBox(
                     height: 40,
                     width: 40,
@@ -294,19 +429,24 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
                       onTap: () => {
-                        _changeBigPhoto(_smallPhoto1),
-                        _selectedPhotoIndex = 1
+                        setState(() {
+                          _changeBigPhoto(_smallPhoto1);
+                          _selectedPhotoIndex = 1;
+                        }),
                       },
-                      child: SizedBox(
+                      child: Container(
                         height: 40,
                         width: 40,
-                        child: Transform.scale(
-                          scale: _selectedPhotoIndex == 1 ? 1.5 : 1.0,
-                          child: Image.asset(
-                            _smallPhoto1,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(_smallPhoto1),
                             fit: BoxFit.cover,
                           ),
                         ),
+                        transform: Matrix4.diagonal3Values(
+                            _selectedPhotoIndex == 1 ? 1.2 : 1.0,
+                            _selectedPhotoIndex == 1 ? 1.2 : 1.0,
+                            1.0),
                       ),
                     ),
                   ),
@@ -314,19 +454,24 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
                       onTap: () => {
-                        _changeBigPhoto(_smallPhoto2),
-                        _selectedPhotoIndex = 2
+                        setState(() {
+                          _changeBigPhoto(_smallPhoto1);
+                          _selectedPhotoIndex = 2;
+                        }),
                       },
-                      child: SizedBox(
+                      child: Container(
                         height: 40,
                         width: 40,
-                        child: Transform.scale(
-                          scale: _selectedPhotoIndex == 2 ? 1.5 : 1.0,
-                          child: Image.asset(
-                            _smallPhoto2,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(_smallPhoto1),
                             fit: BoxFit.cover,
                           ),
                         ),
+                        transform: Matrix4.diagonal3Values(
+                            _selectedPhotoIndex == 2 ? 1.2 : 1.0,
+                            _selectedPhotoIndex == 2 ? 1.2 : 1.0,
+                            1.0),
                       ),
                     ),
                   ),
@@ -334,19 +479,24 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
                       onTap: () => {
-                        _changeBigPhoto(_smallPhoto3),
-                        _selectedPhotoIndex = 3
+                        setState(() {
+                          _changeBigPhoto(_smallPhoto1);
+                          _selectedPhotoIndex = 3;
+                        }),
                       },
-                      child: SizedBox(
+                      child: Container(
                         height: 40,
                         width: 40,
-                        child: Transform.scale(
-                          scale: _selectedPhotoIndex == 3 ? 1.5 : 1.0,
-                          child: Image.asset(
-                            _smallPhoto3,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: NetworkImage(_smallPhoto1),
                             fit: BoxFit.cover,
                           ),
                         ),
+                        transform: Matrix4.diagonal3Values(
+                            _selectedPhotoIndex == 3 ? 1.2 : 1.0,
+                            _selectedPhotoIndex == 3 ? 1.2 : 1.0,
+                            1.0),
                       ),
                     ),
                   ),
@@ -394,6 +544,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                       children: destination,
                     ),
                   ),
+                  if (errorMessage != '') _errorMessage(),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -986,7 +1137,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                       ]),
                                   width: 256,
                                   child: TextField(
-                                    controller: controllerNotes,
+                                    controller: _controllerNotes,
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
                                       focusedBorder: OutlineInputBorder(
