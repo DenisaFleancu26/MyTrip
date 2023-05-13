@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/screens/edit_plan.dart';
@@ -6,6 +7,7 @@ import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 
+import '../auth.dart';
 import '../models/plan.dart';
 
 class TripPlanScreen extends StatefulWidget {
@@ -95,6 +97,55 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
     });
   }
 
+  Future<void> deletePlan() async {
+    final userQuerySnapshot = await FirebaseFirestore.instance
+        .collection('Users')
+        .where('email', isEqualTo: Auth().currentUser?.email)
+        .get();
+
+    if (userQuerySnapshot.docs.isNotEmpty) {
+      final userId = userQuerySnapshot.docs.first.id;
+      var trip = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userId)
+          .collection('trip-plan')
+          .where('start', isEqualTo: widget.plan.tripStart)
+          .where('end', isEqualTo: widget.plan.tripEnd)
+          .where('name', isEqualTo: widget.plan.name)
+          .where('destination', isEqualTo: widget.plan.destination)
+          .where('hotel', isEqualTo: widget.plan.hotel)
+          .where('address', isEqualTo: widget.plan.address)
+          .where('contact', isEqualTo: widget.plan.contact)
+          .where('check-in', isEqualTo: widget.plan.checkIn)
+          .where('check-out', isEqualTo: widget.plan.checkOut)
+          .where('transport', isEqualTo: widget.plan.transport)
+          .where('departure', isEqualTo: widget.plan.departure)
+          .where('return', isEqualTo: widget.plan.retur)
+          .where('imageUrl', isEqualTo: widget.plan.imageUrl)
+          .where('notes', isEqualTo: widget.plan.notes);
+
+      var querySnapshot = await trip.get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var productDoc = querySnapshot.docs.first;
+        var productId = productDoc.id;
+
+        await FirebaseFirestore.instance
+            .collection('Users')
+            .doc(userId)
+            .collection('trip-plan')
+            .doc(productId)
+            .delete();
+      }
+      setState(() {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => HomeScreen()),
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<Widget> destination = [
@@ -173,7 +224,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: GestureDetector(
-                      onTap: () => {},
+                      onTap: deletePlan,
                       child: const SizedBox(
                         height: 30,
                         width: 30,
