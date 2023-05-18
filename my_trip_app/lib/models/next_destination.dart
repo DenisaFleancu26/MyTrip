@@ -1,11 +1,18 @@
 class ImageDestination {
-  final String url;
+  final List<String> url;
 
   ImageDestination({required this.url});
 
-  factory ImageDestination.fromJson(Map<String, dynamic> json) {
+  factory ImageDestination.fromJson(Map<dynamic, dynamic> data) {
+    final List<dynamic> maps = data['photos'] as List<dynamic>;
+    List<String> urls = [];
+    for (var map in maps) {
+      urls.add(map['src']['original']);
+    }
+
     return ImageDestination(
-        url: json["photos"][0]["src"]["original"] as String);
+      url: urls,
+    );
   }
 }
 

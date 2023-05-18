@@ -15,7 +15,10 @@ class Trip {
     String transport,
     String departure,
     String retur,
-    String imageUrl,
+    String imageUrl1,
+    String imageUrl2,
+    String imageUrl3,
+    String imageUrl4,
     String notes,
   ) async {
     final userQuerySnapshot = await FirebaseFirestore.instance
@@ -42,7 +45,10 @@ class Trip {
         'transport': transport,
         'departure': departure,
         'return': retur,
-        'imageUrl': imageUrl,
+        'imageUrl': imageUrl1,
+        'imageUrl2': imageUrl2,
+        'imageUrl3': imageUrl3,
+        'imageUrl4': imageUrl4,
         'notes': notes,
       });
     }

@@ -124,7 +124,10 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       dropDownValue,
       '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
       '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
-      imageDestination.url,
+      imageDestination.url[0],
+      imageDestination.url[1],
+      imageDestination.url[2],
+      imageDestination.url[3],
       _controllerNotes.text,
     );
     setState(() {
