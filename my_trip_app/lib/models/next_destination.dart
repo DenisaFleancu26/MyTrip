@@ -26,12 +26,18 @@ class NextDestination {
     required this.countryName,
     required this.images,
   });
+}
 
-  factory NextDestination.fromJson(Map<String, dynamic> json) {
-    return NextDestination(
-      destinationName: "",
-      countryName: "",
-      images: [],
-    );
-  }
+class PastDestination {
+  final String destinationName;
+  final String countryName;
+  final String feedback;
+  final String image;
+
+  PastDestination({
+    required this.destinationName,
+    required this.countryName,
+    required this.feedback,
+    required this.image,
+  });
 }
