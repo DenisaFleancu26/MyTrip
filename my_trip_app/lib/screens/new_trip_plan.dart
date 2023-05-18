@@ -107,8 +107,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
     Trip trip = Trip();
 
     String destinationName = _controllerDestination.text;
-    destinationName =
-        destinationName.substring(0, destinationName.indexOf(','));
+    // destinationName =
+    //     destinationName.substring(0, destinationName.indexOf(','));
     ImageDestination imageDestination = await fetchImages(destinationName);
 
     await trip.addPlanTrip(
