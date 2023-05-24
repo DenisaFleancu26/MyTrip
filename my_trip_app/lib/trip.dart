@@ -44,6 +44,8 @@ class Trip {
         'return': retur,
         'imageUrl': imageUrl,
         'notes': notes,
+        'rating': 0.0,
+        'review': '',
       });
     }
   }

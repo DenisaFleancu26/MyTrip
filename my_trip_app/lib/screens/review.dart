@@ -6,6 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_trip_app/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:my_trip_app/screens/history.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import '../models/plan.dart';
@@ -28,6 +29,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
   final User? user = Auth().currentUser;
   int currentIndex = 0;
   int bottomTabIndex = 0;
+  String? errorMessage = '';
 
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imageFileList = [];
@@ -36,6 +38,15 @@ class _ReviewScreenState extends State<ReviewScreen> {
 
   double rating = 0;
 
+  Widget _errorMessage() {
+    return Center(
+        child: Text(errorMessage == '' ? '' : "$errorMessage",
+            style: const TextStyle(
+              color: Color.fromARGB(255, 199, 6, 6),
+              fontSize: 15,
+            )));
+  }
+
   void selectImage() async {
     final List<XFile>? selectedImages = await imagePicker.pickMultiImage();
     if (selectedImages!.isNotEmpty) {
@@ -43,9 +54,14 @@ class _ReviewScreenState extends State<ReviewScreen> {
     }
   }
 
-  Future saveReview() async {}
+  Future saveReview() async {
+    if (rating == 0.0) {
+      setState(() {
+        errorMessage = "Don't forget to rate your trip!";
+      });
+      return;
+    }
 
-  Future uploadFile() async {
     final userQuerySnapshot = await FirebaseFirestore.instance
         .collection('Users')
         .where('email', isEqualTo: Auth().currentUser?.email)
@@ -81,6 +97,21 @@ class _ReviewScreenState extends State<ReviewScreen> {
         var documentSnapshot = querySnapshot.docs[0];
         tripId = documentSnapshot.reference.id;
       }
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var documentSnapshot = querySnapshot.docs[0];
+        var documentReference = documentSnapshot.reference;
+        if (_controllerReview.text.isEmpty) {
+          await documentReference.update({
+            'rating': rating,
+          });
+        } else {
+          await documentReference.update({
+            'rating': rating,
+            'review': _controllerReview.text,
+          });
+        }
+      }
     }
     if (imageFileList != null) {
       for (var img in imageFileList!) {
@@ -95,6 +126,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
         });
       }
     }
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HistoryScreen(plan: widget.plan)),
+      );
+    });
   }
 
   @override
@@ -220,12 +258,15 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     width: double.infinity,
                     height: 200,
                     decoration: BoxDecoration(
+                      color: Color.fromARGB(245, 235, 234, 234),
                       borderRadius: BorderRadius.circular(20),
-                      image: const DecorationImage(
-                        image: AssetImage(
-                            "assets/images/dummy_datas/maldives.jpg"),
-                        fit: BoxFit.cover,
-                      ),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            spreadRadius: 0,
+                            blurRadius: 4,
+                            offset: const Offset(0, 4))
+                      ],
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -241,7 +282,7 @@ class _ReviewScreenState extends State<ReviewScreen> {
                                   color: Color.fromARGB(159, 66, 66, 66)),
                             ]),
                         Text(
-                          "Upload photos",
+                          "Upload images",
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 30,
@@ -288,6 +329,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                 ),
               ),
             ),
+            const SizedBox(height: 15),
+            if (errorMessage != '') _errorMessage(),
             Row(
               children: [
                 Padding(
@@ -359,8 +402,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
                     hintText: "My trip was..",
                     border: InputBorder.none,
                     focusedBorder: OutlineInputBorder(
-                      borderSide: const BorderSide(
-                          width: 2, color: Color.fromARGB(255, 202, 202, 202)),
+                      borderSide:
+                          const BorderSide(width: 2, color: Colors.cyan),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     contentPadding:
