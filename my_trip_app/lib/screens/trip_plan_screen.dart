@@ -6,6 +6,7 @@ import 'package:my_trip_app/screens/edit_plan.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
+import 'package:my_trip_app/screens/review.dart';
 
 import '../auth.dart';
 import '../models/plan.dart';
@@ -236,7 +237,43 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                       ),
                     ),
                   ),
-                )
+                ),
+                const SizedBox(width: 10),
+                Container(
+                  transformAlignment: Alignment.center,
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Color.fromARGB(73, 255, 255, 255),
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black.withOpacity(0.25),
+                            spreadRadius: 2,
+                            blurRadius: 4,
+                            offset: Offset(0, 4))
+                      ]),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ReviewScreen(plan: widget.plan)),
+                      ),
+                      child: const SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Icon(
+                          Icons.rate_review,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
