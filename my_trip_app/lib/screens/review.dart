@@ -6,7 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_trip_app/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:my_trip_app/screens/history.dart';
+// import 'package:my_trip_app/screens/history.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import '../models/plan.dart';
@@ -126,13 +126,13 @@ class _ReviewScreenState extends State<ReviewScreen> {
         });
       }
     }
-    setState(() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HistoryScreen(plan: widget.plan)),
-      );
-    });
+    // setState(() {
+    //   Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (context) => HistoryScreen(plan: widget.plan)),
+    //   );
+    // });
   }
 
   @override
