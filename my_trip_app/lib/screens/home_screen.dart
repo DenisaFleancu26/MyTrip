@@ -238,7 +238,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _fetchDestinationsFromFirebase();
   }
 
-  _fetchDestinationsFromFirebase() async {
+  Future<List<dynamic>> _fetchDestinationsFromFirebase() async {
     final userQuerySnapshot = await FirebaseFirestore.instance
         .collection('Users')
         .where('email', isEqualTo: Auth().currentUser?.email)
@@ -258,6 +258,16 @@ class _HomeScreenState extends State<HomeScreen> {
         }
       }
     }
+    return destinations;
+  }
+
+  Future<List<dynamic>> _fetchAllData() async {
+    await _fetchDestinationsFromFirebase();
+    _populateNextDestinationWidget();
+    _populateFutureDestinationWidgets();
+    _populatePastDestinationWidgets();
+
+    return destinations;
   }
 
   void _onItemTapped(int index) {
@@ -265,19 +275,19 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomTabIndex = index;
       switch (index) {
         case 0:
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
           break;
         case 1:
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const NewTripPlanScreen()),
           );
           break;
         case 2:
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const ProfileScreen()),
           );
@@ -327,10 +337,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    _populateNextDestinationWidget();
-    _populateFutureDestinationWidgets();
-    _populatePastDestinationWidgets();
-
     return Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           items: const [
@@ -354,74 +360,70 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         body: SingleChildScrollView(
             padding: const EdgeInsets.only(top: 25),
-            // child: FutureBuilder(
-            //   future: _fetchDestinationsFromFirebase(),
-            //   builder: (context, snapshot) {
-            //     if (snapshot.hasData) {
-
-            // destinationName =
-            //     destinationName.substring(0, destinationName.indexOf(','));
-
-            // countryName = countryName.substring(
-            //     countryName.indexOf(',') + 2,
-            //     countryName.length); // TODO separate them in model!!
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 25, top: 10),
-                  child: Text(
-                    "Next Destination",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 15),
-                CustomNextDestination(nextDestination: nextDestination),
-                const Padding(
-                  padding: EdgeInsets.only(left: 25, top: 10),
-                  child: Text(
-                    "Future Destinations",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 300,
-                  child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    children: futureDestinations,
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(left: 25, top: 10),
-                  child: Text(
-                    "History",
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 150,
-                  child: ListView(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    children: pastDestinationsWidgets,
-                  ),
-                ),
-              ],
-            )));
+            child: FutureBuilder(
+                future: _fetchAllData(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 25, top: 10),
+                          child: Text(
+                            "Next Destination",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 15),
+                        CustomNextDestination(nextDestination: nextDestination),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 25, top: 10),
+                          child: Text(
+                            "Future Destinations",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 300,
+                          child: ListView(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            children: futureDestinations,
+                          ),
+                        ),
+                        const Padding(
+                          padding: EdgeInsets.only(left: 25, top: 10),
+                          child: Text(
+                            "History",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 150,
+                          child: ListView(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            children: pastDestinationsWidgets,
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Container();
+                  }
+                })));
   }
 }
