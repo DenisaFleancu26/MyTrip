@@ -13,6 +13,8 @@ class Plan {
   final String retur;
   final String imageUrl;
   final String notes;
+  late String rating;
+  late String review;
 
   Plan({
     required this.tripStart,
@@ -29,6 +31,8 @@ class Plan {
     required this.retur,
     required this.imageUrl,
     required this.notes,
+    required this.rating,
+    required this.review,
   });
 
   factory Plan.fromJson(dynamic trip) {
@@ -46,6 +50,8 @@ class Plan {
     String retur = trip['return'];
     String imageUrl = trip['imageUrl'];
     String notes = trip['notes'];
+    String rating = trip['rating'];
+    String review = trip['review'];
 
     return Plan(
       tripStart: tripStart,
@@ -62,6 +68,8 @@ class Plan {
       retur: retur,
       imageUrl: imageUrl,
       notes: notes,
+      rating: rating,
+      review: review,
     );
   }
 }
