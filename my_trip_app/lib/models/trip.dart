@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_trip_app/auth.dart';
+import 'package:my_trip_app/services/auth.dart';
 
 class Trip {
   Future<void> addPlanTrip(

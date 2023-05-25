@@ -5,8 +5,8 @@ import 'package:my_trip_app/models/next_destination.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/services/json.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
-import 'package:my_trip_app/trip.dart';
-import '../auth.dart';
+import 'package:my_trip_app/models/trip.dart';
+import '../services/auth.dart';
 import '../widgets/custom_button.dart';
 
 class NewTripPlanScreen extends StatefulWidget {

@@ -4,7 +4,7 @@ import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/signup_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../auth.dart';
+import '../services/auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

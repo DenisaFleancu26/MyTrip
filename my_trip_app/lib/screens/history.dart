@@ -10,7 +10,7 @@ import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 
-import '../auth.dart';
+import '../services/auth.dart';
 import '../models/plan.dart';
 
 class HistoryScreen extends StatefulWidget {

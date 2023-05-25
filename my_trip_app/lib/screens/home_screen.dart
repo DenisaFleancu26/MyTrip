@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:my_trip_app/auth.dart';
+import 'package:my_trip_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_trip_app/models/next_destination.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
