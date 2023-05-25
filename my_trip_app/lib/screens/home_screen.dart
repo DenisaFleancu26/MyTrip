@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<dynamic> destinations = [];
   late NextDestination nextDestination;
+  late Plan nextPlan;
 
   Future<List<dynamic>> _fetchDestinationsFromFirebase() async {
     final userQuerySnapshot = await FirebaseFirestore.instance
@@ -103,6 +104,24 @@ class _HomeScreenState extends State<HomeScreen> {
       countryName: countryName,
       images: images,
     );
+
+    nextPlan = Plan(
+        tripStart: destinations.first['start'],
+        tripEnd: destinations.first['end'],
+        name: destinations.first['name'],
+        destination: destinations.first['destination'],
+        hotel: destinations.first['hotel'],
+        address: destinations.first['address'],
+        contact: destinations.first['contact'],
+        checkIn: destinations.first['check-in'],
+        checkOut: destinations.first['check-out'],
+        transport: destinations.first['transport'],
+        departure: destinations.first['departure'],
+        retur: destinations.first['return'],
+        imageUrl: destinations.first['imageUrl'],
+        notes: destinations.first['notes'],
+        rating: "",
+        review: "");
   }
 
   _populateFutureDestinationWidgets() {
@@ -196,7 +215,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         const SizedBox(height: 15),
-                        CustomNextDestination(nextDestination: nextDestination),
+                        CustomNextDestination(
+                            nextDestination: nextDestination, plan: nextPlan),
                         const Padding(
                           padding: EdgeInsets.only(left: 25, top: 10),
                           child: Text(

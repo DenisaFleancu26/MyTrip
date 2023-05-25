@@ -2,13 +2,17 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:my_trip_app/models/next_destination.dart';
+import 'package:my_trip_app/screens/trip_plan_screen.dart';
 
+import '../models/plan.dart';
 import 'custom_button.dart';
 
 class CustomNextDestination extends StatefulWidget {
-  const CustomNextDestination({super.key, required this.nextDestination});
+  const CustomNextDestination(
+      {super.key, required this.nextDestination, required this.plan});
 
   final NextDestination nextDestination;
+  final Plan plan;
 
   @override
   State<CustomNextDestination> createState() => _CustomNextDestinationState();
@@ -74,7 +78,10 @@ class _CustomNextDestinationState extends State<CustomNextDestination> {
           bottom: 7,
           left: 35,
           child: CustomButton(
-            onTap: () {},
+            onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TripPlanScreen(plan: widget.plan))),
             withGradient: false,
             text: "View details",
             color: Colors.cyan,
