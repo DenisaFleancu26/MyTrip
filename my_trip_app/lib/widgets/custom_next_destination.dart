@@ -65,7 +65,7 @@ class _CustomNextDestinationState extends State<CustomNextDestination> {
             dotsCount: items.length,
             position: currentIndex.toDouble(),
             decorator: const DotsDecorator(
-                color: Color.fromARGB(255, 199, 199, 199),
+                color: Colors.white,
                 activeColor: Colors.cyan,
                 spacing: EdgeInsets.all(4)),
           ),
@@ -83,7 +83,7 @@ class _CustomNextDestinationState extends State<CustomNextDestination> {
           ),
         ),
         Positioned(
-          bottom: 135,
+          bottom: 105,
           left: 55,
           child: Text(
             widget.nextDestination.destinationName,
@@ -95,7 +95,7 @@ class _CustomNextDestinationState extends State<CustomNextDestination> {
           ),
         ),
         const Positioned(
-          bottom: 120,
+          bottom: 90,
           left: 55,
           child: Text(
             "___",
@@ -103,17 +103,6 @@ class _CustomNextDestinationState extends State<CustomNextDestination> {
               color: Colors.white,
               fontSize: 30,
               fontWeight: FontWeight.w900,
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: 95,
-          left: 55,
-          child: Text(
-            widget.nextDestination.countryName,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
             ),
           ),
         ),
