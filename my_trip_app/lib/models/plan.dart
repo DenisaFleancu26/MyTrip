@@ -12,6 +12,8 @@ class Plan {
   final String departure;
   final String retur;
   final String imageUrl;
+  final String imageUrl2;
+  final String imageUrl3;
   final String notes;
   late String rating;
   late String review;
@@ -30,6 +32,8 @@ class Plan {
     required this.departure,
     required this.retur,
     required this.imageUrl,
+    required this.imageUrl2,
+    required this.imageUrl3,
     required this.notes,
     required this.rating,
     required this.review,

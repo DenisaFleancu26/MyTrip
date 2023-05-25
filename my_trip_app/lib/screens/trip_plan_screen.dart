@@ -31,8 +31,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
     super.initState();
     _bigPhoto = widget.plan.imageUrl;
     _smallPhoto1 = widget.plan.imageUrl;
-    _smallPhoto2 = 'assets/images/dummy_datas/corfu2.jpg';
-    _smallPhoto3 = 'assets/images/dummy_datas/corfu3.jpg';
+    _smallPhoto2 = widget.plan.imageUrl2;
+    _smallPhoto3 = widget.plan.imageUrl3;
   }
 
   int bottomTabIndex = 0;
@@ -369,7 +369,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                     child: GestureDetector(
                       onTap: () => {
                         setState(() {
-                          _changeBigPhoto(_smallPhoto1);
+                          _changeBigPhoto(_smallPhoto2);
                           _selectedPhotoIndex = 2;
                         }),
                       },
@@ -378,7 +378,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                         width: 40,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(_smallPhoto1),
+                            image: NetworkImage(_smallPhoto2),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -394,7 +394,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                     child: GestureDetector(
                       onTap: () => {
                         setState(() {
-                          _changeBigPhoto(_smallPhoto1);
+                          _changeBigPhoto(_smallPhoto3);
                           _selectedPhotoIndex = 3;
                         }),
                       },
@@ -403,7 +403,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                         width: 40,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(_smallPhoto1),
+                            image: NetworkImage(_smallPhoto3),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -569,8 +569,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
-                              children: [
+                            Row(
+                              children: const [
                                 Icon(
                                   Icons.hotel,
                                   color: Color.fromARGB(255, 0, 0, 0),
@@ -705,8 +705,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
-                              children: [
+                            Row(
+                              children: const [
                                 Icon(
                                   Icons.connecting_airports,
                                   color: Color.fromARGB(255, 0, 0, 0),
@@ -798,8 +798,8 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Row(
-                              children: [
+                            Row(
+                              children: const [
                                 Icon(
                                   Icons.description,
                                   color: Color.fromARGB(255, 0, 0, 0),

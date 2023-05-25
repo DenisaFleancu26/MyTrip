@@ -119,6 +119,8 @@ class _HomeScreenState extends State<HomeScreen> {
         departure: destinations.first['departure'],
         retur: destinations.first['return'],
         imageUrl: destinations.first['imageUrl'],
+        imageUrl2: destinations.first['imageUrl2'],
+        imageUrl3: destinations.first['imageUrl3'],
         notes: destinations.first['notes'],
         rating: "",
         review: "");
@@ -140,6 +142,8 @@ class _HomeScreenState extends State<HomeScreen> {
           departure: destinations[i]['departure'],
           retur: destinations[i]['return'],
           imageUrl: destinations[i]['imageUrl'],
+          imageUrl2: destinations[i]['imageUrl2'],
+          imageUrl3: destinations[i]['imageUrl3'],
           notes: destinations[i]['notes'],
           rating: "",
           review: "");
