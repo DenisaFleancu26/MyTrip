@@ -34,42 +34,4 @@ class Plan {
     required this.rating,
     required this.review,
   });
-
-  factory Plan.fromJson(dynamic trip) {
-    String tripStart = trip['start'];
-    String tripEnd = trip['end'];
-    String name = trip['name'];
-    String destination = trip['destination'];
-    String hotel = trip['hotel'];
-    String address = trip['address'];
-    String contact = trip['contact'];
-    String checkIn = trip['check-in'];
-    String checkOut = trip['check-out'];
-    String transport = trip['transport'];
-    String departure = trip['departure'];
-    String retur = trip['return'];
-    String imageUrl = trip['imageUrl'];
-    String notes = trip['notes'];
-    String rating = trip['rating'];
-    String review = trip['review'];
-
-    return Plan(
-      tripStart: tripStart,
-      tripEnd: tripEnd,
-      name: name,
-      destination: destination,
-      hotel: hotel,
-      address: address,
-      contact: contact,
-      checkIn: checkIn,
-      checkOut: checkOut,
-      transport: transport,
-      departure: departure,
-      retur: retur,
-      imageUrl: imageUrl,
-      notes: notes,
-      rating: rating,
-      review: review,
-    );
-  }
 }
