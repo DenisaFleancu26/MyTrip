@@ -50,6 +50,8 @@ class Trip {
         'imageUrl3': imageUrl3,
         'imageUrl4': imageUrl4,
         'notes': notes,
+        'rating': 0.0,
+        'review': '',
       });
     }
   }
