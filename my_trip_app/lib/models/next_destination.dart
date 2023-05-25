@@ -7,7 +7,7 @@ class ImageDestination {
     final List<dynamic> maps = data['photos'] as List<dynamic>;
     List<String> urls = [];
     for (var map in maps) {
-      urls.add(map['src']['original']);
+      urls.add(map['src']['portrait']);
     }
 
     return ImageDestination(
