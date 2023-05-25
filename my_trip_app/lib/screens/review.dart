@@ -6,7 +6,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_trip_app/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:my_trip_app/screens/history.dart';
+import 'package:my_trip_app/screens/history.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import '../models/plan.dart';
@@ -30,6 +30,8 @@ class _ReviewScreenState extends State<ReviewScreen> {
   int currentIndex = 0;
   int bottomTabIndex = 0;
   String? errorMessage = '';
+  late var tripId;
+  late var userId;
 
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imageFileList = [];
@@ -67,9 +69,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
         .where('email', isEqualTo: Auth().currentUser?.email)
         .get();
 
-    late var tripId;
-    late var userId;
-
     if (userQuerySnapshot.docs.isNotEmpty) {
       userId = userQuerySnapshot.docs.first.id;
       var trip = FirebaseFirestore.instance
@@ -103,16 +102,23 @@ class _ReviewScreenState extends State<ReviewScreen> {
         var documentReference = documentSnapshot.reference;
         if (_controllerReview.text.isEmpty) {
           await documentReference.update({
-            'rating': rating,
+            'rating': '$rating',
           });
         } else {
           await documentReference.update({
-            'rating': rating,
+            'rating': '$rating',
             'review': _controllerReview.text,
           });
         }
       }
     }
+    imgRef = FirebaseFirestore.instance
+        .collection('Users')
+        .doc(userId)
+        .collection('trip-plan')
+        .doc(tripId)
+        .collection('imageURLs');
+
     if (imageFileList != null) {
       for (var img in imageFileList!) {
         var path = File(img.path);
@@ -126,19 +132,21 @@ class _ReviewScreenState extends State<ReviewScreen> {
         });
       }
     }
-    // setState(() {
-    //   Navigator.push(
-    //     context,
-    //     MaterialPageRoute(
-    //         builder: (context) => HistoryScreen(plan: widget.plan)),
-    //   );
-    // });
+    widget.plan.rating = '$rating';
+    widget.plan.review = _controllerReview.text;
+
+    setState(() {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => HistoryScreen(plan: widget.plan)),
+      );
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    imgRef = FirebaseFirestore.instance.collection('imagesURLs');
   }
 
   void _onItemTapped(int index) {
