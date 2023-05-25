@@ -46,6 +46,8 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   image_picker: ^0.8.3+3
   firebase_storage: ^11.2.1
+  full_screen_image: ^2.0.0
+  photo_view: ^0.13.0
 
 dev_dependencies:
   flutter_test:
