@@ -141,7 +141,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
       setState(() {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
         );
       });
     }
@@ -152,18 +152,15 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
     final List<Widget> destination = [
       Stack(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(),
-            child: Container(
-              width: double.infinity,
-              height: 350,
-              decoration: BoxDecoration(
-                borderRadius:
-                    const BorderRadius.vertical(bottom: Radius.circular(30)),
-                image: DecorationImage(
-                  image: NetworkImage(_bigPhoto),
-                  fit: BoxFit.cover,
-                ),
+          Container(
+            width: double.infinity,
+            height: 350,
+            decoration: BoxDecoration(
+              borderRadius:
+                  const BorderRadius.vertical(bottom: Radius.circular(30)),
+              image: DecorationImage(
+                image: NetworkImage(_bigPhoto),
+                fit: BoxFit.fill,
               ),
             ),
           ),
@@ -449,398 +446,395 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
       body: Stack(
         children: [
           SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 390,
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: destination,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 390,
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: destination,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          RotatedBox(
-                            quarterTurns: -1,
-                            child: GestureDetector(
-                              onTap: () => {
-                                setState(() {
-                                  _buttonSelected = 1;
-                                  _toggleHotel();
-                                }),
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: _buttonSelected == 1
-                                      ? const Color.fromARGB(255, 0, 206, 203)
-                                      : Color.fromARGB(39, 71, 71, 71),
-                                  borderRadius: const BorderRadius.vertical(
-                                      bottom: Radius.circular(30)),
-                                ),
-                                height: 30,
-                                width: 80,
-                                child: const Center(
-                                  child: Text(
-                                    "Hotel",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        RotatedBox(
+                          quarterTurns: -1,
+                          child: GestureDetector(
+                            onTap: () => {
+                              setState(() {
+                                _buttonSelected = 1;
+                                _toggleHotel();
+                              }),
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: _buttonSelected == 1
+                                    ? const Color.fromARGB(255, 0, 206, 203)
+                                    : Color.fromARGB(39, 71, 71, 71),
+                                borderRadius: const BorderRadius.vertical(
+                                    bottom: Radius.circular(30)),
+                              ),
+                              height: 30,
+                              width: 80,
+                              child: const Center(
+                                child: Text(
+                                  "Hotel",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          RotatedBox(
-                            quarterTurns: -1,
-                            child: GestureDetector(
-                              onTap: () => {
-                                setState(() {
-                                  _buttonSelected = 2;
-                                  _toggleTransport();
-                                }),
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 110,
-                                decoration: BoxDecoration(
-                                  color: _buttonSelected == 2
-                                      ? const Color.fromARGB(255, 0, 206, 203)
-                                      : Color.fromARGB(39, 71, 71, 71),
-                                  borderRadius: const BorderRadius.vertical(
-                                      bottom: Radius.circular(30)),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    "Transport",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                        ),
+                        const SizedBox(height: 10),
+                        RotatedBox(
+                          quarterTurns: -1,
+                          child: GestureDetector(
+                            onTap: () => {
+                              setState(() {
+                                _buttonSelected = 2;
+                                _toggleTransport();
+                              }),
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 110,
+                              decoration: BoxDecoration(
+                                color: _buttonSelected == 2
+                                    ? const Color.fromARGB(255, 0, 206, 203)
+                                    : Color.fromARGB(39, 71, 71, 71),
+                                borderRadius: const BorderRadius.vertical(
+                                    bottom: Radius.circular(30)),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Transport",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 10),
-                          RotatedBox(
-                            quarterTurns: -1,
-                            child: GestureDetector(
-                              onTap: () => {
-                                setState(() {
-                                  _buttonSelected = 3;
-                                  _toggleNotes();
-                                }),
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 80,
-                                decoration: BoxDecoration(
-                                  color: _buttonSelected == 3
-                                      ? const Color.fromARGB(255, 0, 206, 203)
-                                      : Color.fromARGB(39, 71, 71, 71),
-                                  borderRadius: const BorderRadius.vertical(
-                                      bottom: Radius.circular(30)),
-                                ),
-                                child: const Center(
-                                  child: Text(
-                                    "Notes",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                        ),
+                        const SizedBox(height: 10),
+                        RotatedBox(
+                          quarterTurns: -1,
+                          child: GestureDetector(
+                            onTap: () => {
+                              setState(() {
+                                _buttonSelected = 3;
+                                _toggleNotes();
+                              }),
+                            },
+                            child: Container(
+                              height: 30,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                color: _buttonSelected == 3
+                                    ? const Color.fromARGB(255, 0, 206, 203)
+                                    : Color.fromARGB(39, 71, 71, 71),
+                                borderRadius: const BorderRadius.vertical(
+                                    bottom: Radius.circular(30)),
+                              ),
+                              child: const Center(
+                                child: Text(
+                                  "Notes",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 255, 255, 255),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      if (_hotelVisible)
-                        Container(
-                          padding: const EdgeInsets.only(left: 40, top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: const [
-                                  Icon(
-                                    Icons.hotel,
+                        ),
+                      ],
+                    ),
+                    if (_hotelVisible)
+                      Container(
+                        padding: const EdgeInsets.only(left: 40, top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Row(
+                              children: [
+                                Icon(
+                                  Icons.hotel,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  size: 20,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  "Hotel details",
+                                  style: TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
-                                    size: 20,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    "Hotel details",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Name:",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                ],
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  widget.plan.hotel,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            const Text(
+                              "Address:",
+                              style: TextStyle(
+                                color: Color.fromARGB(255, 0, 0, 0),
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
                               ),
-                              const SizedBox(height: 30),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Name:",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    widget.plan.hotel,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              const Text(
-                                "Address:",
-                                style: TextStyle(
+                            ),
+                            const SizedBox(height: 10),
+                            SizedBox(
+                              width: 250,
+                              child: Text(
+                                widget.plan.address,
+                                style: const TextStyle(
                                   color: Color.fromARGB(255, 0, 0, 0),
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 10),
-                              SizedBox(
-                                width: 250,
-                                child: Text(
-                                  widget.plan.address,
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Contact:",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  widget.plan.contact,
                                   style: const TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
                                     fontSize: 15,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Contact:",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    widget.plan.contact,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Check_In:",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    widget.plan.checkIn,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Check_Out:",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    widget.plan.checkOut,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      if (_transportVisible)
-                        Container(
-                          padding: const EdgeInsets.only(left: 40, top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: const [
-                                  Icon(
-                                    Icons.connecting_airports,
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Check_In:",
+                                  style: TextStyle(
                                     color: Color.fromARGB(255, 0, 0, 0),
-                                    size: 20,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    "Transport details",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 30),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Transport:",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    widget.plan.transport,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Departure to destination:",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    widget.plan.departure,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                children: [
-                                  const Text(
-                                    "Departure from destination:",
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 20),
-                                  Text(
-                                    widget.plan.retur,
-                                    style: const TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      if (_notesVisible)
-                        Container(
-                          margin: const EdgeInsets.only(left: 40, top: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: const [
-                                  Icon(
-                                    Icons.description,
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    size: 20,
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    "Notes",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 30),
-                              Container(
-                                width: 250,
-                                margin: const EdgeInsets.only(),
-                                child: Text(
-                                  widget.plan.notes,
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  widget.plan.checkIn,
                                   style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Check_Out:",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  widget.plan.checkOut,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (_transportVisible)
+                      Container(
+                        padding: const EdgeInsets.only(left: 40, top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Row(
+                              children: [
+                                Icon(
+                                  Icons.connecting_airports,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  size: 20,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  "Transport details",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Transport:",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  widget.plan.transport,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Departure to destination:",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  widget.plan.departure,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                const Text(
+                                  "Departure from destination:",
+                                  style: TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(width: 20),
+                                Text(
+                                  widget.plan.retur,
+                                  style: const TextStyle(
+                                    color: Color.fromARGB(255, 0, 0, 0),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (_notesVisible)
+                      Container(
+                        margin: const EdgeInsets.only(left: 40, top: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Row(
+                              children: [
+                                Icon(
+                                  Icons.description,
+                                  color: Color.fromARGB(255, 0, 0, 0),
+                                  size: 20,
+                                ),
+                                SizedBox(width: 10),
+                                Text(
+                                  "Notes",
+                                  style: TextStyle(
                                     color: Colors.black,
-                                    fontSize: 15,
+                                    fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+                              ],
+                            ),
+                            const SizedBox(height: 30),
+                            Container(
+                              width: 250,
+                              margin: const EdgeInsets.only(),
+                              child: Text(
+                                widget.plan.notes,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                    ],
-                  ),
-                ],
-              ),
+                      ),
+                  ],
+                ),
+              ],
             ),
           ),
         ],

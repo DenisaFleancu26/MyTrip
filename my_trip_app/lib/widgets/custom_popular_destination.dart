@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 
 class CustomPopularDestination extends StatelessWidget {
   const CustomPopularDestination(
-      {super.key, required this.destinations, required this.index});
+      {super.key,
+      required this.destinations,
+      required this.index,
+      required this.onPress});
 
   final List<dynamic> destinations;
   final int index;
+  final Function onPress;
 
   @override
   Widget build(BuildContext context) {
@@ -13,14 +17,17 @@ class CustomPopularDestination extends StatelessWidget {
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            width: 200,
-            height: 300,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image: NetworkImage(destinations[index]['imageUrl4']),
-                fit: BoxFit.cover,
+          child: GestureDetector(
+            onTap: () => onPress(),
+            child: Container(
+              width: 200,
+              height: 300,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                image: DecorationImage(
+                  image: NetworkImage(destinations[index]['imageUrl4']),
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),

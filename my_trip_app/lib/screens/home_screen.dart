@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/trip_plan_screen.dart';
 import 'package:my_trip_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_trip_app/models/next_destination.dart';
@@ -8,6 +9,8 @@ import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/widgets/custom_next_destination.dart';
 import 'package:my_trip_app/widgets/custom_past_destination.dart';
 import 'package:my_trip_app/widgets/custom_popular_destination.dart';
+
+import '../models/plan.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -24,219 +27,8 @@ class _HomeScreenState extends State<HomeScreen> {
   late List<PastDestination> pastDestinations = [];
   late List<Widget> pastDestinationsWidgets = [];
 
-  final List<Widget> bestDeals = [
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          width: 300,
-          height: 150,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 4,
-                    offset: const Offset(0, 4))
-              ]),
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15)),
-                child: Image.asset(
-                  'assets/images/dummy_datas/punta_cana.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                top: 10,
-                child: Text(
-                  "Punta Cana Resort",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                top: 30,
-                child: Text(
-                  "Other location details",
-                  maxLines: null,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                bottom: 15,
-                child: Text(
-                  "100 EUR/night",
-                  maxLines: null,
-                  style: TextStyle(
-                    color: Colors.cyan,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          )),
-    ),
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          width: 300,
-          height: 150,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 4,
-                    offset: const Offset(0, 4))
-              ]),
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15)),
-                child: Image.asset(
-                  'assets/images/dummy_datas/bali.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                top: 10,
-                child: Text(
-                  "Bali Resort",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                top: 30,
-                child: Text(
-                  "Other location details",
-                  maxLines: null,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                bottom: 15,
-                child: Text(
-                  "150 EUR/night",
-                  maxLines: null,
-                  style: TextStyle(
-                    color: Colors.cyan,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          )),
-    ),
-    Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Container(
-          width: 300,
-          height: 150,
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black.withOpacity(0.25),
-                    spreadRadius: 0,
-                    blurRadius: 4,
-                    offset: const Offset(0, 4))
-              ]),
-          child: Stack(
-            children: [
-              ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(15),
-                    bottomLeft: Radius.circular(15)),
-                child: Image.asset(
-                  'assets/images/dummy_datas/maldives.jpg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                top: 10,
-                child: Text(
-                  "Maldives Resort",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                top: 30,
-                child: Text(
-                  "Other location details",
-                  maxLines: null,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 14,
-                  ),
-                ),
-              ),
-              const Positioned(
-                left: 115,
-                bottom: 15,
-                child: Text(
-                  "75 EUR/night",
-                  maxLines: null,
-                  style: TextStyle(
-                    color: Colors.cyan,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ],
-          )),
-    ),
-  ];
-
   List<dynamic> destinations = [];
   late NextDestination nextDestination;
-
-  Future<void> signOut() async {
-    await Auth().signOut();
-  }
-
-  @override
-  initState() {
-    super.initState();
-    _fetchDestinationsFromFirebase();
-  }
 
   Future<List<dynamic>> _fetchDestinationsFromFirebase() async {
     final userQuerySnapshot = await FirebaseFirestore.instance
@@ -315,8 +107,32 @@ class _HomeScreenState extends State<HomeScreen> {
 
   _populateFutureDestinationWidgets() {
     for (int i = 0; i < destinations.length; i++) {
-      futureDestinations
-          .add(CustomPopularDestination(destinations: destinations, index: i));
+      Plan plan = Plan(
+          tripStart: destinations[i]['start'],
+          tripEnd: destinations[i]['end'],
+          name: destinations[i]['name'],
+          destination: destinations[i]['destination'],
+          hotel: destinations[i]['hotel'],
+          address: destinations[i]['address'],
+          contact: destinations[i]['contact'],
+          checkIn: destinations[i]['check-in'],
+          checkOut: destinations[i]['check-out'],
+          transport: destinations[i]['transport'],
+          departure: destinations[i]['departure'],
+          retur: destinations[i]['return'],
+          imageUrl: destinations[i]['imageUrl'],
+          notes: destinations[i]['notes'],
+          rating: "",
+          review: "");
+
+      futureDestinations.add(CustomPopularDestination(
+        destinations: destinations,
+        index: i,
+        onPress: () => Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => TripPlanScreen(plan: plan))),
+      ));
     }
   }
 
