@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:my_trip_app/auth.dart';
+import 'package:my_trip_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:my_trip_app/screens/history.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';

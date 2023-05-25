@@ -5,7 +5,7 @@ import 'package:my_trip_app/screens/change_password.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 
-import '../auth.dart';
+import '../services/auth.dart';
 import 'login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {

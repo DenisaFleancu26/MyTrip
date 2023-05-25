@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+
+class CustomPopularDestination extends StatelessWidget {
+  const CustomPopularDestination(
+      {super.key, required this.destinations, required this.index});
+
+  final List<dynamic> destinations;
+  final int index;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            width: 200,
+            height: 300,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: NetworkImage(destinations[index]['imageUrl4']),
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 25,
+          left: 25,
+          child: Text(
+            destinations[index]['destination'],
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        )
+      ],
+    );
+  }
+}

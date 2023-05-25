@@ -1,11 +1,18 @@
 class ImageDestination {
-  final String url;
+  final List<String> url;
 
   ImageDestination({required this.url});
 
-  factory ImageDestination.fromJson(Map<String, dynamic> json) {
+  factory ImageDestination.fromJson(Map<dynamic, dynamic> data) {
+    final List<dynamic> maps = data['photos'] as List<dynamic>;
+    List<String> urls = [];
+    for (var map in maps) {
+      urls.add(map['src']['portrait']);
+    }
+
     return ImageDestination(
-        url: json["photos"][0]["src"]["original"] as String);
+      url: urls,
+    );
   }
 }
 
@@ -19,12 +26,18 @@ class NextDestination {
     required this.countryName,
     required this.images,
   });
+}
 
-  factory NextDestination.fromJson(Map<String, dynamic> json) {
-    return NextDestination(
-      destinationName: "",
-      countryName: "",
-      images: [],
-    );
-  }
+class PastDestination {
+  final String destinationName;
+  final String countryName;
+  final String feedback;
+  final String image;
+
+  PastDestination({
+    required this.destinationName,
+    required this.countryName,
+    required this.feedback,
+    required this.image,
+  });
 }

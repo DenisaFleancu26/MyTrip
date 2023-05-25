@@ -8,7 +8,7 @@ import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
-import '../auth.dart';
+import '../services/auth.dart';
 import '../models/plan.dart';
 
 class EditPlanScreen extends StatefulWidget {

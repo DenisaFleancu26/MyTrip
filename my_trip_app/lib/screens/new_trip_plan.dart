@@ -5,8 +5,8 @@ import 'package:my_trip_app/models/next_destination.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/services/json.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
-import 'package:my_trip_app/trip.dart';
-import '../auth.dart';
+import 'package:my_trip_app/models/trip.dart';
+import '../services/auth.dart';
 import '../widgets/custom_button.dart';
 
 class NewTripPlanScreen extends StatefulWidget {
@@ -107,8 +107,16 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
     Trip trip = Trip();
 
     String destinationName = _controllerDestination.text;
-    destinationName =
-        destinationName.substring(0, destinationName.indexOf(','));
+    if (destinationName.contains(' ')) {
+      destinationName =
+          destinationName.substring(0, destinationName.indexOf(' '));
+    }
+
+    if (destinationName.contains(',')) {
+      destinationName =
+          destinationName.substring(0, destinationName.indexOf(','));
+    }
+
     ImageDestination imageDestination = await fetchImages(destinationName);
 
     await trip.addPlanTrip(
@@ -124,7 +132,10 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       dropDownValue,
       '${timeDeparture!.hour.toString().padLeft(2, '0')}:${timeDeparture!.minute.toString().padLeft(2, '0')}',
       '${timeReturn!.hour.toString().padLeft(2, '0')}:${timeReturn!.minute.toString().padLeft(2, '0')}',
-      imageDestination.url,
+      imageDestination.url[0],
+      imageDestination.url[1],
+      imageDestination.url[2],
+      imageDestination.url[3],
       _controllerNotes.text,
     );
     setState(() {
