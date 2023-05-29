@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:my_trip_app/screens/history.dart';
 import 'package:my_trip_app/screens/trip_plan_screen.dart';
 import 'package:my_trip_app/services/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,11 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
   int bottomTabIndex = 0;
 
   late List<Widget> futureDestinations = [];
-  late List<PastDestination> pastDestinations = [];
-  late List<Widget> pastDestinationsWidgets = [];
+  late List<Widget> pastDestinations = [];
 
   List<dynamic> destinations = [];
   late NextDestination nextDestination;
+  late PastDestination pastDestination;
   late Plan nextPlan;
 
   Future<List<dynamic>> _fetchDestinationsFromFirebase() async {
@@ -160,17 +161,37 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   _populatePastDestinationWidgets() {
-    for (var destination in destinations) {
-      pastDestinations.add(PastDestination(
-          destinationName: destination['name'],
-          countryName: destination['destination'],
-          feedback: "feedback sth sth",
-          image: destination['imageUrl']));
-    }
+    for (int i = 0; i < destinations.length; i++) {
+      if (destinations[i]['rating'] != '0.0') {
+        Plan plan = Plan(
+            tripStart: destinations[i]['start'],
+            tripEnd: destinations[i]['end'],
+            name: destinations[i]['name'],
+            destination: destinations[i]['destination'],
+            hotel: destinations[i]['hotel'],
+            address: destinations[i]['address'],
+            contact: destinations[i]['contact'],
+            checkIn: destinations[i]['check-in'],
+            checkOut: destinations[i]['check-out'],
+            transport: destinations[i]['transport'],
+            departure: destinations[i]['departure'],
+            retur: destinations[i]['return'],
+            imageUrl: destinations[i]['imageUrl'],
+            imageUrl2: destinations[i]['imageUrl2'],
+            imageUrl3: destinations[i]['imageUrl3'],
+            notes: destinations[i]['notes'],
+            rating: destinations[i]['rating'],
+            review: destinations[i]['review']);
 
-    for (int i = 0; i < pastDestinations.length; i++) {
-      pastDestinationsWidgets
-          .add(CustomPastDestination(pastDestination: pastDestinations[i]));
+        pastDestinations.add(CustomPastDestination(
+          destinations: destinations,
+          index: i,
+          onPress: () => Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HistoryScreen(plan: plan))),
+        ));
+      }
     }
   }
 
@@ -212,10 +233,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             "Next Destination",
                             style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                      offset: Offset(0.5, 0.5),
+                                      blurRadius: 4.0,
+                                      color: Color.fromARGB(159, 66, 66, 66)),
+                                ]),
                           ),
                         ),
                         const SizedBox(height: 15),
@@ -226,10 +252,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             "Future Destinations",
                             style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
+                                color: Colors.black,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                shadows: <Shadow>[
+                                  Shadow(
+                                      offset: Offset(0.5, 0.5),
+                                      blurRadius: 4.0,
+                                      color: Color.fromARGB(159, 66, 66, 66)),
+                                ]),
                           ),
                         ),
                         SizedBox(
@@ -240,25 +271,32 @@ class _HomeScreenState extends State<HomeScreen> {
                             children: futureDestinations,
                           ),
                         ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 25, top: 10),
-                          child: Text(
-                            "History",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
+                        if (pastDestinations.isNotEmpty)
+                          const Padding(
+                            padding: EdgeInsets.only(left: 25, top: 10),
+                            child: Text(
+                              "History",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  shadows: <Shadow>[
+                                    Shadow(
+                                        offset: Offset(0.5, 0.5),
+                                        blurRadius: 4.0,
+                                        color: Color.fromARGB(159, 66, 66, 66)),
+                                  ]),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 150,
-                          child: ListView(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            children: pastDestinationsWidgets,
+                        if (pastDestinations.isNotEmpty)
+                          SizedBox(
+                            height: 150,
+                            child: ListView(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              children: pastDestinations,
+                            ),
                           ),
-                        ),
                       ],
                     );
                   } else {

@@ -245,10 +245,15 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                   child: Text(
                     "Planner Trip",
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
+                        color: Colors.black,
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        shadows: <Shadow>[
+                          Shadow(
+                              offset: Offset(0.5, 0.5),
+                              blurRadius: 4.0,
+                              color: Color.fromARGB(159, 66, 66, 66)),
+                        ]),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -373,10 +378,15 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                       Text(
                         "Hotel details",
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            shadows: <Shadow>[
+                              Shadow(
+                                  offset: Offset(0.5, 0.5),
+                                  blurRadius: 4.0,
+                                  color: Color.fromARGB(159, 66, 66, 66)),
+                            ]),
                       ),
                     ],
                   ),
@@ -566,10 +576,15 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                       Text(
                         "Transport details",
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            shadows: <Shadow>[
+                              Shadow(
+                                  offset: Offset(0.5, 0.5),
+                                  blurRadius: 4.0,
+                                  color: Color.fromARGB(159, 66, 66, 66)),
+                            ]),
                       ),
                     ],
                   ),
@@ -748,10 +763,15 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                       Text(
                         "Notes",
                         style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold,
-                        ),
+                            color: Colors.black,
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold,
+                            shadows: <Shadow>[
+                              Shadow(
+                                  offset: Offset(0.5, 0.5),
+                                  blurRadius: 4.0,
+                                  color: Color.fromARGB(159, 66, 66, 66)),
+                            ]),
                       ),
                     ],
                   ),
@@ -777,9 +797,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         hintText: "Notes..",
                         border: InputBorder.none,
                         focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2,
-                              color: Color.fromARGB(255, 202, 202, 202)),
+                          borderSide:
+                              const BorderSide(width: 1.5, color: Colors.cyan),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         contentPadding: const EdgeInsets.only(
