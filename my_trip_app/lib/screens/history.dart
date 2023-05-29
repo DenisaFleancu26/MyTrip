@@ -12,6 +12,7 @@ import 'package:my_trip_app/screens/new_trip_plan.dart';
 
 import '../auth.dart';
 import '../models/plan.dart';
+import '../widgets/gallery.dart';
 
 class HistoryScreen extends StatefulWidget {
   final Plan plan;
@@ -31,10 +32,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
   double val = 0;
   int nrImages = 0;
 
-  double rating = 3.0;
   late String userId;
   late String tripId;
   bool dataLoaded = false;
+  List<String> urlImages = [];
 
   @override
   void initState() {
@@ -91,6 +92,10 @@ class _HistoryScreenState extends State<HistoryScreen> {
 
       if (doc.docs.isNotEmpty) {
         nrImages = doc.docs.length;
+
+        for (int i = 2; i < nrImages; i++) {
+          urlImages.add(doc.docs[i].get('url'));
+        }
         switch (nrImages) {
           case 0:
             _bigPhoto = _smallPhoto1 =
@@ -341,12 +346,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20),
                       child: GestureDetector(
-                        onTap: () => {
-                          setState(() {
-                            _changeBigPhoto(_smallPhoto3!);
-                            _selectedPhotoIndex = 3;
-                          }),
-                        },
+                        onTap: openGallery,
                         child: Stack(
                           children: [
                             Padding(
@@ -914,4 +914,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
       ),
     );
   }
+
+  void openGallery() => Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (_) => GalleryWidget(
+                  urlImages: urlImages,
+                )),
+      );
 }
