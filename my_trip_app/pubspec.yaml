@@ -41,7 +41,7 @@ dependencies:
   firebase_auth: ^4.4.0
   firebase_database: ^10.1.0
   google_sign_in: ^6.1.0
-  intl: ^0.18.0
+  intl: 
   http: ^0.13.5
   flutter_rating_bar: ^4.0.1
   image_picker: ^0.8.3+3
