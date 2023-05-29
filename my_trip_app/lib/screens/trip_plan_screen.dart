@@ -580,10 +580,16 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                 Text(
                                   "Hotel details",
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: <Shadow>[
+                                        Shadow(
+                                            offset: Offset(0.5, 0.5),
+                                            blurRadius: 4.0,
+                                            color: Color.fromARGB(
+                                                159, 66, 66, 66)),
+                                      ]),
                                 ),
                               ],
                             ),
@@ -716,10 +722,16 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                 Text(
                                   "Transport details",
                                   style: TextStyle(
-                                    color: Color.fromARGB(255, 0, 0, 0),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      color: Color.fromARGB(255, 0, 0, 0),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: <Shadow>[
+                                        Shadow(
+                                            offset: Offset(0.5, 0.5),
+                                            blurRadius: 4.0,
+                                            color: Color.fromARGB(
+                                                159, 66, 66, 66)),
+                                      ]),
                                 ),
                               ],
                             ),
@@ -809,10 +821,16 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                                 Text(
                                   "Notes",
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: <Shadow>[
+                                        Shadow(
+                                            offset: Offset(0.5, 0.5),
+                                            blurRadius: 4.0,
+                                            color: Color.fromARGB(
+                                                159, 66, 66, 66)),
+                                      ]),
                                 ),
                               ],
                             ),
