@@ -293,8 +293,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: const [
+                            child: const Row(
+                              children: [
                                 Icon(Icons.calendar_month),
                                 SizedBox(width: 10),
                                 Text(
@@ -325,8 +325,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: const [
+                            child: const Row(
+                              children: [
                                 Icon(Icons.calendar_month),
                                 SizedBox(width: 10),
                                 Text(
@@ -394,8 +394,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                 const SizedBox(height: 15),
                 Container(
                   margin: const EdgeInsets.only(left: 35),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.hotel),
                       SizedBox(width: 10),
                       Text(
@@ -479,8 +479,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: const [
+                            child: const Row(
+                              children: [
                                 Icon(Icons.event_available),
                                 SizedBox(width: 10),
                                 Text(
@@ -535,8 +535,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                         children: [
                           Container(
                             margin: const EdgeInsets.only(left: 20),
-                            child: Row(
-                              children: const [
+                            child: const Row(
+                              children: [
                                 Icon(Icons.event_busy),
                                 SizedBox(width: 10),
                                 Text(
@@ -592,8 +592,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                 const SizedBox(height: 15),
                 Container(
                   margin: const EdgeInsets.only(left: 35),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.flight),
                       SizedBox(width: 10),
                       Text(
@@ -636,7 +636,7 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                             color: Color.fromARGB(255, 0, 0, 0)),
                         underline: Container(
                           height: 2,
-                          color: Color.fromARGB(255, 0, 206, 203),
+                          color: const Color.fromARGB(255, 0, 206, 203),
                         ),
                         onChanged: (String? newValue) {
                           setState(() {
@@ -779,8 +779,8 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
                 const SizedBox(height: 30),
                 Container(
                   margin: const EdgeInsets.only(left: 35),
-                  child: Row(
-                    children: const [
+                  child: const Row(
+                    children: [
                       Icon(Icons.description),
                       SizedBox(width: 10),
                       Text(
