@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 import 'package:my_trip_app/screens/home_screen.dart';
@@ -52,6 +53,8 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
   @override
   void initState() {
     super.initState();
+
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
     _bigPhoto = widget.plan.imageUrl;
     _smallPhoto1 = widget.plan.imageUrl;
     _smallPhoto2 = 'assets/images/dummy_datas/corfu2.jpg';
