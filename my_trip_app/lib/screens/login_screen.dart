@@ -36,7 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _controllerPassword.text,
       )
           .then((value) {
-        Navigator.push(context,
+        Navigator.popUntil(context, (route) => route.isFirst);
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const HomeScreen()));
       });
     } on FirebaseAuthException catch (e) {
