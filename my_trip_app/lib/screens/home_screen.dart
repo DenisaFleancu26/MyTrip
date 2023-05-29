@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_trip_app/screens/history.dart';
 import 'package:my_trip_app/screens/trip_plan_screen.dart';
 import 'package:my_trip_app/services/auth.dart';
@@ -31,6 +32,12 @@ class _HomeScreenState extends State<HomeScreen> {
   late NextDestination nextDestination;
   late PastDestination pastDestination;
   late Plan nextPlan;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
 
   Future<List<dynamic>> _fetchDestinationsFromFirebase() async {
     final userQuerySnapshot = await FirebaseFirestore.instance
