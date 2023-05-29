@@ -36,8 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
         password: _controllerPassword.text,
       )
           .then((value) {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       });
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -90,7 +90,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 200, 239, 243),
+        backgroundColor: const Color.fromARGB(255, 200, 239, 243),
         foregroundColor: Colors.black,
         elevation: 0,
       ),
@@ -104,9 +104,9 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Welcome Back!",
@@ -115,54 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 40),
-                  GestureDetector(
-                    onTap: () => Auth().signInWithGoogle().then((value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
-                    }),
-                    child: Container(
-                      height: 45,
-                      width: 200,
-                      margin: const EdgeInsets.symmetric(horizontal: 100),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.25),
-                                spreadRadius: 0,
-                                blurRadius: 4,
-                                offset: const Offset(0, 4))
-                          ]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/google.png', width: 30),
-                          const SizedBox(width: 10),
-                          const Text(
-                            "Google",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 30),
-                  const Center(
-                    child: Text("Or log in using",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 0, 0, 0),
-                          fontSize: 13,
-                        )),
-                  ),
-                  const SizedBox(height: 20),
+                  const SizedBox(height: 100),
                   _errorMessage(),
                   const SizedBox(height: 10),
                   Padding(
@@ -217,7 +170,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           "Forgot your password?",
                           style: TextStyle(
                               fontSize: 13,
-                              color: Color.fromARGB(255, 0, 206, 203)),
+                              color: Color.fromARGB(255, 109, 255, 253)),
                         )),
                       ),
                     ),
@@ -252,7 +205,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             height: 30,
                             width: 50,
-                            //margin: const EdgeInsets.only(left: 100),
                             decoration: const BoxDecoration(borderRadius: null),
                             child: const Center(
                                 child: Text(

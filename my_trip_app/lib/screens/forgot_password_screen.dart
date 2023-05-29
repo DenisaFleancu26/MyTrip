@@ -74,7 +74,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 200, 239, 243),
+        backgroundColor: const Color.fromARGB(255, 200, 239, 243),
         foregroundColor: Colors.black,
         elevation: 0,
       ),
@@ -88,9 +88,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Forgot Password",
@@ -99,16 +99,18 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 50),
-                  const Center(
+                  const SizedBox(height: 115),
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20, right: 15),
                     child: Text(
-                        "Please enter your Email and we will send you a password reset link!",
+                        "Please enter your email and we will send you a password reset link!",
+                        textAlign: TextAlign.start,
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 14,
                         )),
                   ),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 15),
                   Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
@@ -128,7 +130,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                   ),
                   const SizedBox(height: 20),
                   _errorMessage(),
-                  const SizedBox(height: 30),
+                  const SizedBox(height: 90),
                   CustomButton(
                     onTap: resetPassword,
                     withGradient: true,
