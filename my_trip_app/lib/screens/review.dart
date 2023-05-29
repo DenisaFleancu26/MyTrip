@@ -142,13 +142,10 @@ class _ReviewScreenState extends State<ReviewScreen> {
     widget.plan.rating = '$rating';
     widget.plan.review = _controllerReview.text;
 
-    setState(() {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => HistoryScreen(plan: widget.plan)),
-      );
-    });
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HistoryScreen(plan: widget.plan)),
+    );
   }
 
   void _onItemTapped(int index) {
