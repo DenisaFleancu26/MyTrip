@@ -6,8 +6,6 @@ import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
-import '../services/auth.dart';
-
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -57,8 +55,8 @@ class _SignupScreenState extends State<SignupScreen> {
           'lastName': _controllerLastName.text
         });
 
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
       });
     } on FirebaseAuthException catch (e) {
       setState(() {
@@ -126,7 +124,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 200, 239, 243),
+        backgroundColor: const Color.fromARGB(255, 200, 239, 243),
         foregroundColor: Colors.black,
         elevation: 0,
       ),
@@ -140,9 +138,9 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(left: 15, right: 15),
+              padding: const EdgeInsets.only(left: 15, right: 15, top: 30),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   const Text(
                     "Create your account!",
@@ -151,54 +149,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 30),
-                  GestureDetector(
-                    onTap: () => Auth().signInWithGoogle().then((value) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
-                    }),
-                    child: Container(
-                      height: 45,
-                      width: 200,
-                      margin: const EdgeInsets.symmetric(horizontal: 100),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.black.withOpacity(0.25),
-                                spreadRadius: 0,
-                                blurRadius: 4,
-                                offset: const Offset(0, 4))
-                          ]),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Image.asset('assets/images/google.png', width: 30),
-                          const SizedBox(width: 10),
-                          const Text(
-                            "Google",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 16,
-                                color: Colors.black),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 15),
-                  const Center(
-                    child: Text("Or sign up using",
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
-                        )),
-                  ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 50),
                   _errorMessage(),
                   const SizedBox(height: 10),
                   Padding(
