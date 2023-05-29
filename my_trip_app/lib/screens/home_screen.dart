@@ -253,7 +253,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: FutureBuilder(
                 future: _fetchAllData(),
                 builder: (context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
+                  if (snapshot.connectionState == ConnectionState.waiting &&
+                      destinations.isNotEmpty) {
                     return const Center(
                         child: CircularProgressIndicator(color: Colors.cyan));
                   } else if (snapshot.hasData) {
