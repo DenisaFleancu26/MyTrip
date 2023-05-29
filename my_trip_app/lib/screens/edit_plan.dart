@@ -271,8 +271,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
         hintText: title,
         border: InputBorder.none,
         focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(
-              width: 2, color: Color.fromARGB(255, 202, 202, 202)),
+          borderSide: const BorderSide(width: 1.5, color: Colors.cyan),
           borderRadius: BorderRadius.circular(20),
         ),
         contentPadding: const EdgeInsets.only(left: 30, top: 15, bottom: 15),
@@ -670,10 +669,16 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                   Text(
                                     "Hotel details",
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                              offset: Offset(0.5, 0.5),
+                                              blurRadius: 4.0,
+                                              color: Color.fromARGB(
+                                                  159, 66, 66, 66)),
+                                        ]),
                                   ),
                                 ],
                               ),
@@ -895,10 +900,16 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                   Text(
                                     "Transport details",
                                     style: TextStyle(
-                                      color: Color.fromARGB(255, 0, 0, 0),
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        color: Color.fromARGB(255, 0, 0, 0),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                              offset: Offset(0.5, 0.5),
+                                              blurRadius: 4.0,
+                                              color: Color.fromARGB(
+                                                  159, 66, 66, 66)),
+                                        ]),
                                   ),
                                 ],
                               ),
@@ -1113,10 +1124,16 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                   Text(
                                     "Notes",
                                     style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                                        color: Colors.black,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        shadows: <Shadow>[
+                                          Shadow(
+                                              offset: Offset(0.5, 0.5),
+                                              blurRadius: 4.0,
+                                              color: Color.fromARGB(
+                                                  159, 66, 66, 66)),
+                                        ]),
                                   ),
                                 ],
                               ),
@@ -1142,9 +1159,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                       border: InputBorder.none,
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: const BorderSide(
-                                            width: 2,
-                                            color: Color.fromARGB(
-                                                255, 202, 202, 202)),
+                                            width: 1.5, color: Colors.cyan),
                                         borderRadius: BorderRadius.circular(20),
                                       ),
                                       contentPadding: const EdgeInsets.only(

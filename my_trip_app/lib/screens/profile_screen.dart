@@ -115,10 +115,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     child: Text(
                       "Profile",
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
+                          color: Colors.black,
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                          shadows: <Shadow>[
+                            Shadow(
+                                offset: Offset(0.5, 0.5),
+                                blurRadius: 4.0,
+                                color: Color.fromARGB(159, 66, 66, 66)),
+                          ]),
                     ),
                   ),
                   const SizedBox(height: 10),
