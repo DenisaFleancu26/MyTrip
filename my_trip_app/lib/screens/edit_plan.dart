@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -178,6 +179,18 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()),
         );
+        final snackBar = SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Success!',
+              message: 'Your trip plan has been successfully edited!',
+              contentType: ContentType.success,
+            ));
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
       });
     }
   }
