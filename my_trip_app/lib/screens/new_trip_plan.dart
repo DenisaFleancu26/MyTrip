@@ -210,21 +210,21 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       bottomTabIndex = index;
       switch (index) {
         case 0:
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
           break;
         case 1:
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const NewTripPlanScreen()),
           );
           break;
         case 2:
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => ProfileScreen()),
+            MaterialPageRoute(builder: (context) => const ProfileScreen()),
           );
           break;
       }
