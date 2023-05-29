@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:my_trip_app/models/next_destination.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
@@ -29,6 +30,12 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
 
   String dropDownValue = 'Plane';
   String? errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
 
   TimeOfDay? timeIn = const TimeOfDay(hour: 12, minute: 12);
   TimeOfDay? timeOut = const TimeOfDay(hour: 12, minute: 12);

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
@@ -26,6 +27,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   final TextEditingController _controllerCurrent = TextEditingController();
   final TextEditingController _controllerNew = TextEditingController();
   final TextEditingController _controllerConfirm = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
 
   void _onItemTapped(int index) {
     setState(() {

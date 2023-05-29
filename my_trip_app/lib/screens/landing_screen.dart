@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_trip_app/screens/start_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
+
+  void initState() {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +52,7 @@ class LandingScreen extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 175),
+                const SizedBox(height: 195),
                 CustomButton(
                   onTap: () => Navigator.push(
                       context,

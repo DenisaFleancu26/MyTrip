@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:my_trip_app/services/auth.dart';
@@ -32,6 +33,12 @@ class _ReviewScreenState extends State<ReviewScreen> {
   String? errorMessage = '';
   late var tripId;
   late var userId;
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
 
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imageFileList = [];
@@ -142,11 +149,6 @@ class _ReviewScreenState extends State<ReviewScreen> {
             builder: (context) => HistoryScreen(plan: widget.plan)),
       );
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
   }
 
   void _onItemTapped(int index) {

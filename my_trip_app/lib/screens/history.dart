@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:full_screen_image/full_screen_image.dart';
 import 'package:my_trip_app/screens/home_screen.dart';
@@ -45,6 +46,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
         dataLoaded = true;
       });
     });
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 
   Future<void> setImages() async {

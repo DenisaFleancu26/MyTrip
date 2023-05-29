@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/screens/signup_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
@@ -18,6 +19,12 @@ class _StartScreenState extends State<StartScreen> {
     Image.asset('assets/images/travel-itinerary.png'),
     Image.asset('assets/images/image.png'),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
 
   final List<Widget> mainTexts = [
     const Text(

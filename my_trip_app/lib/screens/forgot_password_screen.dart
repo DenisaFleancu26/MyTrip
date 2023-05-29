@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_trip_app/screens/login_screen.dart';
 import 'package:my_trip_app/widgets/custom_button.dart';
 
@@ -14,6 +15,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   String? errorMessage = '';
 
   final TextEditingController _controllerEmail = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
+  }
 
   Future resetPassword() async {
     if (_controllerEmail.text.isEmpty) {
