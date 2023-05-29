@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -54,8 +55,8 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
     super.initState();
     _bigPhoto = widget.plan.imageUrl;
     _smallPhoto1 = widget.plan.imageUrl;
-    _smallPhoto2 = 'assets/images/dummy_datas/corfu2.jpg';
-    _smallPhoto3 = 'assets/images/dummy_datas/corfu3.jpg';
+    _smallPhoto2 = widget.plan.imageUrl2;
+    _smallPhoto3 = widget.plan.imageUrl3;
     _controllerHotel = TextEditingController(text: widget.plan.hotel);
     _controllerAddress = TextEditingController(text: widget.plan.address);
     _controllerContact = TextEditingController(text: widget.plan.contact);
@@ -178,6 +179,18 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
           context,
           MaterialPageRoute(builder: (context) => HomeScreen()),
         );
+        final snackBar = SnackBar(
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'Success!',
+              message: 'Your trip plan has been successfully edited!',
+              contentType: ContentType.success,
+            ));
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(snackBar);
       });
     }
   }
@@ -340,16 +353,16 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
             bottom: 90,
             left: 25,
             child: Row(
-              children: const [
-                Icon(
+              children: [
+                const Icon(
                   Icons.location_on,
                   color: Colors.white,
                   size: 40,
                 ),
-                SizedBox(width: 10),
+                const SizedBox(width: 10),
                 Text(
-                  "Corfu",
-                  style: TextStyle(
+                  widget.plan.name,
+                  style: const TextStyle(
                     color: Color.fromARGB(255, 255, 255, 255),
                     fontSize: 40,
                     fontWeight: FontWeight.bold,
@@ -358,12 +371,12 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
               ],
             ),
           ),
-          const Positioned(
+          Positioned(
             bottom: 60,
             left: 25,
             child: Text(
-              "Corfu, Greece",
-              style: TextStyle(
+              widget.plan.destination,
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 15,
                 fontWeight: FontWeight.bold,
@@ -454,7 +467,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                     child: GestureDetector(
                       onTap: () => {
                         setState(() {
-                          _changeBigPhoto(_smallPhoto1);
+                          _changeBigPhoto(_smallPhoto2);
                           _selectedPhotoIndex = 2;
                         }),
                       },
@@ -463,7 +476,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                         width: 40,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(_smallPhoto1),
+                            image: NetworkImage(_smallPhoto2),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -479,7 +492,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                     child: GestureDetector(
                       onTap: () => {
                         setState(() {
-                          _changeBigPhoto(_smallPhoto1);
+                          _changeBigPhoto(_smallPhoto3);
                           _selectedPhotoIndex = 3;
                         }),
                       },
@@ -488,7 +501,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                         width: 40,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: NetworkImage(_smallPhoto1),
+                            image: NetworkImage(_smallPhoto3),
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -710,8 +723,8 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                                 offset: const Offset(0, 4))
                                           ]),
                                       width: 202,
-                                      child: _entryField('Pink hotel',
-                                          _controllerHotel, false),
+                                      child: _entryField(
+                                          '', _controllerHotel, false),
                                     ),
                                   ),
                                 ],
@@ -741,9 +754,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                       ]),
                                   width: 256,
                                   child: _entryField(
-                                      '20 Bis Rue Dugommier, 75012 Corfu, Greece',
-                                      _controllerAddress,
-                                      false),
+                                      '', _controllerAddress, false),
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -774,8 +785,8 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                                 offset: const Offset(0, 4))
                                           ]),
                                       width: 190,
-                                      child: _entryField('+33143434773',
-                                          _controllerContact, false),
+                                      child: _entryField(
+                                          '', _controllerContact, false),
                                     ),
                                   ),
                                 ],
