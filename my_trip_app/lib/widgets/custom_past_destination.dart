@@ -39,7 +39,7 @@ class CustomPastDestination extends StatelessWidget {
                       bottomLeft: Radius.circular(15)),
                   child: Image.network(
                     destinations[index]['imageUrl'],
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Positioned(

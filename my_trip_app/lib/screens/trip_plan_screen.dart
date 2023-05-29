@@ -162,7 +162,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                   const BorderRadius.vertical(bottom: Radius.circular(30)),
               image: DecorationImage(
                 image: NetworkImage(_bigPhoto),
-                fit: BoxFit.fill,
+                fit: BoxFit.cover,
               ),
             ),
           ),
