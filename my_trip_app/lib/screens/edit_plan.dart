@@ -723,8 +723,8 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                                 offset: const Offset(0, 4))
                                           ]),
                                       width: 202,
-                                      child: _entryField('Pink hotel',
-                                          _controllerHotel, false),
+                                      child: _entryField(
+                                          '', _controllerHotel, false),
                                     ),
                                   ),
                                 ],
@@ -754,9 +754,7 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                       ]),
                                   width: 256,
                                   child: _entryField(
-                                      '20 Bis Rue Dugommier, 75012 Corfu, Greece',
-                                      _controllerAddress,
-                                      false),
+                                      '', _controllerAddress, false),
                                 ),
                               ),
                               const SizedBox(height: 10),
@@ -787,8 +785,8 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
                                                 offset: const Offset(0, 4))
                                           ]),
                                       width: 190,
-                                      child: _entryField('+33143434773',
-                                          _controllerContact, false),
+                                      child: _entryField(
+                                          '', _controllerContact, false),
                                     ),
                                   ),
                                 ],
