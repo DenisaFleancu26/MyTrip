@@ -251,10 +251,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   GestureDetector(
                     onTap: () => {
                       signOut,
-                      Navigator.pushReplacement(
-                          context,
+                      Navigator.of(context).pushAndRemoveUntil(
                           MaterialPageRoute(
-                              builder: (context) => const LoginScreen())),
+                              builder: (context) => const LoginScreen()),
+                          (route) => false),
                     },
                     child: Container(
                       padding: const EdgeInsets.only(left: 15, top: 15),
