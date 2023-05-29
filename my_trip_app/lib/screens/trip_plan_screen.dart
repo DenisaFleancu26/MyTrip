@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 import 'package:my_trip_app/screens/edit_plan.dart';
-
 import 'package:my_trip_app/screens/home_screen.dart';
 import 'package:my_trip_app/screens/profile_screen.dart';
 import 'package:my_trip_app/screens/new_trip_plan.dart';
@@ -33,6 +34,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
     _smallPhoto1 = widget.plan.imageUrl;
     _smallPhoto2 = widget.plan.imageUrl2;
     _smallPhoto3 = widget.plan.imageUrl3;
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
   }
 
   int bottomTabIndex = 0;
@@ -422,6 +424,7 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
       ),
     ];
 
+    FlutterStatusbarcolor.setStatusBarColor(Colors.transparent);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         items: const [

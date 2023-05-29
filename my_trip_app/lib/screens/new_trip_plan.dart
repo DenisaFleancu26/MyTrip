@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -160,7 +161,22 @@ class _NewTripPlanScreenState extends State<NewTripPlanScreen> {
       timeOut = TimeOfDay.now();
       timeDeparture = TimeOfDay.now();
       timeReturn = TimeOfDay.now();
-      errorMessage = 'Plan Trip added successfully!';
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+      final snackBar = SnackBar(
+          elevation: 0,
+          behavior: SnackBarBehavior.floating,
+          backgroundColor: Colors.transparent,
+          content: AwesomeSnackbarContent(
+            title: 'Success!',
+            message: 'Your trip plan has been successfully added!',
+            contentType: ContentType.success,
+          ));
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(snackBar);
     });
   }
 
