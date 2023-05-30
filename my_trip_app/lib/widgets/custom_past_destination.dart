@@ -46,7 +46,7 @@ class CustomPastDestination extends StatelessWidget {
                   left: 110,
                   top: 10,
                   child: Text(
-                    '${destinations[index]['name']} - ${destinations[index]['destination']}',
+                    '${destinations[index]['destination']}',
                     style: const TextStyle(
                       color: Colors.black,
                       fontSize: 16,

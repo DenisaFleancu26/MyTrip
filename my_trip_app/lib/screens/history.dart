@@ -833,30 +833,31 @@ class _HistoryScreenState extends State<HistoryScreen> {
                             ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 30, right: 20, top: 20, bottom: 20),
-                            child: Text(
-                              "Rating: ${widget.plan.rating}",
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 17,
-                                fontWeight: FontWeight.bold,
+                      if (widget.plan.rating != '0.0')
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 30, right: 20, top: 20, bottom: 20),
+                              child: Text(
+                                "Rating: ${widget.plan.rating}",
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
-                          ),
-                          RatingBar.builder(
-                            initialRating: double.parse(widget.plan.rating),
-                            itemBuilder: (context, _) =>
-                                const Icon(Icons.star, color: Colors.amber),
-                            onRatingUpdate: (rating) {},
-                            ignoreGestures: true,
-                          ),
-                        ],
-                      ),
+                            RatingBar.builder(
+                              initialRating: double.parse(widget.plan.rating),
+                              itemBuilder: (context, _) =>
+                                  const Icon(Icons.star, color: Colors.amber),
+                              onRatingUpdate: (rating) {},
+                              ignoreGestures: true,
+                            ),
+                          ],
+                        ),
                       if (widget.plan.review != '')
                         Column(
                           children: [
